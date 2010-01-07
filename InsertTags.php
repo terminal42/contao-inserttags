@@ -79,7 +79,7 @@ class InsertTags extends Frontend
 	 */
 	public function replaceDynamicTags($strTag)
 	{
-		$arrTag = split('::', $strTag);
+		$arrTag = trimsplit('::', $strTag);
 		
 		if ($arrTag[0] !== 'custom')
 			return false;
