@@ -1,13 +1,15 @@
 <?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
 
 /**
- * TYPOlight webCMS
- * Copyright (C) 2005 Leo Feyer
+ * Contao Open Source CMS
+ * Copyright (C) 2005-2010 Leo Feyer
+ *
+ * Formerly known as TYPOlight Open Source CMS.
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
- * version 2.1 of the License, or (at your option) any later version.
+ * version 3 of the License, or (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,12 +18,13 @@
  * 
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
- * Software Foundation website at http://www.gnu.org/licenses/.
+ * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Andreas Schempp 2009
+ * @copyright  Andreas Schempp 2008-2010
  * @author     Andreas Schempp <andreas@schempp.ch>
  * @license    http://opensource.org/licenses/lgpl-3.0.html
+ * @version    $Id$
  */
 
 
@@ -34,10 +37,10 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 	// Config
 	'config' => array
 	(
-		'dataContainer'               => 'Table',
-		'enableVersioning'            => false,
-		'label'                       => &$GLOBALS['TL_LANG']['MOD']['inserttags'][0],
-		'onload_callback'			  => array
+		'dataContainer'					=> 'Table',
+		'enableVersioning'				=> false,
+		'label'							=> &$GLOBALS['TL_LANG']['MOD']['inserttags'][0],
+		'onload_callback'				=> array
 		(
 			array('tl_inserttags', 'disableRTE'),
 		),
@@ -48,64 +51,64 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 	(
 		'sorting' => array
 		(
-			'mode'                    => 5,
-			'fields'                  => array('sorting'),
-			'flag'                    => 1,
-			'panelLayout'             => 'filter;search,limit',
-			'paste_button_callback'   => array('tl_inserttags', 'pasteTag'),
-            'icon'                    => 'system/modules/inserttags/html/icon.gif',
+			'mode'						=> 5,
+			'fields'					=> array('sorting'),
+			'flag'						=> 1,
+			'panelLayout'				=> 'filter;search,limit',
+			'paste_button_callback'		=> array('tl_inserttags', 'pasteTag'),
+            'icon'						=> 'system/modules/inserttags/html/icon.gif',
 
 		),
 		'label' => array
 		(
-			'fields'                  => array('tag'),
-			'format'                  => '%s',
-			'label_callback'		  => array('tl_inserttags', 'labelCallback'),
+			'fields'					=> array('tag'),
+			'format'					=> '%s',
+			'label_callback'			=> array('tl_inserttags', 'labelCallback'),
 		),
 		'global_operations' => array
 		(
 			'all' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
-				'href'                => 'act=select',
-				'class'               => 'header_edit_all',
-				'attributes'          => 'onclick="Backend.getScrollOffset();"'
+				'label'					=> &$GLOBALS['TL_LANG']['MSC']['all'],
+				'href'					=> 'act=select',
+				'class'					=> 'header_edit_all',
+				'attributes'			=> 'onclick="Backend.getScrollOffset();"'
 			)
 		),
 		'operations' => array
 		(
 			'edit' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_inserttags']['edit'],
-				'href'                => 'act=edit',
-				'icon'                => 'edit.gif'
+				'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['edit'],
+				'href'					=> 'act=edit',
+				'icon'					=> 'edit.gif'
 			),
 			'copy' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_inserttags']['copy'],
-				'href'                => 'act=paste&mode=copy',
-				'icon'                => 'copy.gif',
-				'attributes'          => 'onclick="Backend.getScrollOffset();"',
+				'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['copy'],
+				'href'					=> 'act=paste&mode=copy',
+				'icon'					=> 'copy.gif',
+				'attributes'			=> 'onclick="Backend.getScrollOffset();"',
 			),
 			'cut' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_inserttags']['cut'],
-				'href'                => 'act=paste&mode=cut',
-				'icon'                => 'cut.gif',
-				'attributes'          => 'onclick="Backend.getScrollOffset();"',
+				'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['cut'],
+				'href'					=> 'act=paste&mode=cut',
+				'icon'					=> 'cut.gif',
+				'attributes'			=> 'onclick="Backend.getScrollOffset();"',
 			),
 			'delete' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_inserttags']['delete'],
-				'href'                => 'act=delete',
-				'icon'                => 'delete.gif',
-				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+				'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['delete'],
+				'href'					=> 'act=delete',
+				'icon'					=> 'delete.gif',
+				'attributes'			=> 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
 			),
 			'show' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_inserttags']['show'],
-				'href'                => 'act=show',
-				'icon'                => 'show.gif'
+				'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['show'],
+				'href'					=> 'act=show',
+				'icon'					=> 'show.gif'
 			)
 		)
 	),
@@ -113,19 +116,19 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'				=> array('timing', 'useCondition', 'limitpages', 'limitLanguages', 'useCounter', 'protected'),
-		'default'                   => '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,limitLanguages,guests,protected;{advanced_legend:hide},timing,useCondition,useCounter;{expert_legend:hide},backend,cacheOutput',
+		'__selector__'					=> array('timing', 'useCondition', 'limitpages', 'limitLanguages', 'useCounter', 'protected'),
+		'default'						=> '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,limitLanguages,guests,protected;{advanced_legend:hide},timing,useCondition,useCounter;{expert_legend:hide},backend,cacheOutput',
 	),
 	
 	// Subpalettes
 	'subpalettes' => array
 	(
-		'timing'					=> 'start_date,start_time,end_date,end_time',
-		'limitpages'				=> 'pages,includesubpages',
-		'limitLanguages'			=> 'languages',
-		'useCondition'				=> 'conditionType,conditionFormula,conditionQuery,conditionValue',
-		'useCounter'				=> 'counterValue,counterDefault,counterRepeat',
-		'protected'					=> 'groups',
+		'timing'						=> 'start_date,start_time,end_date,end_time',
+		'limitpages'					=> 'pages,includesubpages',
+		'limitLanguages'				=> 'languages',
+		'useCondition'					=> 'conditionType,conditionFormula,conditionQuery,conditionValue',
+		'useCounter'					=> 'counterValue,counterDefault,counterRepeat',
+		'protected'						=> 'groups',
 	),
 
 	// Fields
@@ -133,220 +136,220 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 	(
 		'tag' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['tag'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'                  => array('mandatory'=>true, 'maxlength'=>255, 'nospace'=>true, 'tl_class'=>'w50')
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['tag'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('mandatory'=>true, 'maxlength'=>255, 'nospace'=>true, 'tl_class'=>'w50')
 		),
 		'replacement' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['replacement'],
-			'inputType'             => 'textarea',
-			'exclude'				=> true,
-			'search'				=> true,
-			'eval'					=> array('rte'=>'tinyMCE', 'allowHtml'=>true, 'tl_class'=>'clr'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['replacement'],
+			'inputType'					=> 'textarea',
+			'exclude'					=> true,
+			'search'					=> true,
+			'eval'						=> array('rte'=>'tinyMCE', 'allowHtml'=>true, 'tl_class'=>'clr'),
 		),
 		'disableRTE' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['disableRTE'],
-			'inputType'             => 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'					=> array('submitOnChange'=>true),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['disableRTE'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('submitOnChange'=>true),
 		),
 		'description' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['description'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'search'				=> true,
-			'eval'                  => array('maxlength'=>255, 'tl_class'=>'w50')
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['description'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'search'					=> true,
+			'eval'						=> array('maxlength'=>255, 'tl_class'=>'w50')
 		),
 		'timing' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['timing'],
-			'inputType'             => 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'					=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['timing'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
 		),
 		'start_date' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['start_date'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'eval'					=> array('multiple'=>true, 'size'=>3, 'rgxp'=>'digit', 'maxlength'=>4, 'tl_class'=>'w50'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['start_date'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('multiple'=>true, 'size'=>3, 'rgxp'=>'digit', 'maxlength'=>4, 'tl_class'=>'w50'),
 		),
 		'start_time' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['start_time'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'eval'					=> array('multiple'=>true, 'size'=>2, 'rgxp'=>'digit', 'maxlength'=>2, 'tl_class'=>'w50'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['start_time'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('multiple'=>true, 'size'=>2, 'rgxp'=>'digit', 'maxlength'=>2, 'tl_class'=>'w50'),
 		),
 		'end_date' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['end_date'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'eval'					=> array('multiple'=>true, 'size'=>3, 'rgxp'=>'digit', 'maxlength'=>4, 'tl_class'=>'w50'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['end_date'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('multiple'=>true, 'size'=>3, 'rgxp'=>'digit', 'maxlength'=>4, 'tl_class'=>'w50'),
 		),
 		'end_time' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['end_time'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'eval'					=> array('multiple'=>true, 'size'=>2, 'rgxp'=>'digit', 'maxlength'=>2, 'tl_class'=>'w50'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['end_time'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('multiple'=>true, 'size'=>2, 'rgxp'=>'digit', 'maxlength'=>2, 'tl_class'=>'w50'),
 		),
 		'limitpages' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['limitpages'],
-			'inputType'             => 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'					=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['limitpages'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
 		),
 		'pages' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['pages'],
-			'inputType'             => 'pageTree',
-			'exclude'				=> true,
-			'eval'                  => array('fieldType'=>'checkbox'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['pages'],
+			'inputType'					=> 'pageTree',
+			'exclude'					=> true,
+			'eval'						=> array('fieldType'=>'checkbox'),
 		),
 		'includesubpages' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['includesubpages'],
-			'inputType'             => 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'					=> array('tl_class'=>'clr'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['includesubpages'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('tl_class'=>'clr'),
 		),
 		'limitLanguages' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['limitLanguages'],
-			'inputType'             => 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'					=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['limitLanguages'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
 		),
 		'languages' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['languages'],
-			'inputType'             => 'select',
-			'exclude'				=> true,
-			'options'				=> $this->getLanguages(),
-			'eval'                  => array('multiple'=>true, 'size'=>'10'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['languages'],
+			'inputType'					=> 'select',
+			'exclude'					=> true,
+			'options'					=> $this->getLanguages(),
+			'eval'						=> array('multiple'=>true, 'size'=>'10'),
 		),
 		'backend' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['backend'],
-			'inputType'             => 'radio',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'options'				=> array(''=>'fe', '1'=>'be'),
-			'reference'				=> &$GLOBALS['TL_LANG']['tl_inserttags'],
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['backend'],
+			'inputType'					=> 'radio',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'options'					=> array(''=>'fe', '1'=>'be'),
+			'reference'					=> &$GLOBALS['TL_LANG']['tl_inserttags'],
 		),
 		'cacheOutput' => array
 		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['cacheOutput'],
-			'inputType'				=> 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['cacheOutput'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
 		),
 		'useCondition' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['useCondition'],
-			'inputType'             => 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'					=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['useCondition'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
 		),
 		'conditionType' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['conditionType'],
-			'inputType'             => 'select',
-			'options'				=> array('text', 'database'),
-			'reference'				=> &$GLOBALS['TL_LANG']['tl_inserttags'],
-			'default'				=> 'text',
-			'exclude'				=> true,
-			'eval'					=> array('maxlength'=>255, 'tl_class'=>'w50'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['conditionType'],
+			'inputType'					=> 'select',
+			'options'					=> array('text', 'database'),
+			'reference'					=> &$GLOBALS['TL_LANG']['tl_inserttags'],
+			'default'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('maxlength'=>255, 'tl_class'=>'w50'),
 		),
 		'conditionQuery' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['conditionQuery'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'eval'					=> array('maxlength'=>255, 'tl_class'=>'long'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['conditionQuery'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('maxlength'=>255, 'tl_class'=>'long'),
 		),
 		'conditionFormula' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['conditionFormula'],
-			'inputType'             => 'select',
-			'options'				=> array('eq', 'neq', 'lt', 'gt', 'elt', 'egt', 'starts', 'ends', 'contains', 'istarts', 'iends', 'icontains'),
-			'reference'				=> &$GLOBALS['TL_LANG']['tl_inserttags'],
-			'exclude'				=> true,
-			'eval'					=> array('tl_class'=>'w50'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['conditionFormula'],
+			'inputType'					=> 'select',
+			'options'					=> array('eq', 'neq', 'lt', 'gt', 'elt', 'egt', 'starts', 'ends', 'contains', 'istarts', 'iends', 'icontains'),
+			'reference'					=> &$GLOBALS['TL_LANG']['tl_inserttags'],
+			'exclude'					=> true,
+			'eval'						=> array('tl_class'=>'w50'),
 		),
 		'conditionValue' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['conditionValue'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'eval'					=> array('maxlength'=>255, 'tl_class'=>'long'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['conditionValue'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('maxlength'=>255, 'tl_class'=>'long'),
 		),
 		'useCounter' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['useCounter'],
-			'inputType'             => 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'					=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['useCounter'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('submitOnChange'=>true, 'tl_class'=>'clr'),
 		),
 		'counterValue' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['counterValue'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'eval'					=> array('rgxp'=>'digit', 'maxlength'=>5, 'mandatory'=>true, 'tl_class'=>'w50'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['counterValue'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('rgxp'=>'digit', 'maxlength'=>5, 'mandatory'=>true, 'tl_class'=>'w50'),
 		),
 		'counterDefault' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['counterDefault'],
-			'inputType'             => 'text',
-			'exclude'				=> true,
-			'eval'					=> array('rgxp'=>'digit', 'maxlength'=>5, 'mandatory'=>true, 'tl_class'=>'w50'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['counterDefault'],
+			'inputType'					=> 'text',
+			'exclude'					=> true,
+			'eval'						=> array('rgxp'=>'digit', 'maxlength'=>5, 'mandatory'=>true, 'tl_class'=>'w50'),
 		),
 		'counterRepeat' => array
 		(
-			'label'                 => &$GLOBALS['TL_LANG']['tl_inserttags']['counterRepeat'],
-			'inputType'             => 'checkbox',
-			'exclude'				=> true,
-			'filter'				=> true,
-			'eval'					=> array('tl_class'=>'clr'),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['counterRepeat'],
+			'inputType'					=> 'checkbox',
+			'exclude'					=> true,
+			'filter'					=> true,
+			'eval'						=> array('tl_class'=>'clr'),
 		),
 		'protected' => array
 		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['protected'],
-			'exclude'				=> true,
-			'filter'				=> true,
-			'inputType'				=> 'checkbox',
-			'eval'					=> array('submitOnChange'=>true),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['protected'],
+			'exclude'					=> true,
+			'filter'					=> true,
+			'inputType'					=> 'checkbox',
+			'eval'						=> array('submitOnChange'=>true),
 		),
 		'groups' => array
 		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['groups'],
-			'exclude'				=> true,
-			'inputType'				=> 'checkbox',
-			'foreignKey'			=> 'tl_member_group.name',
-			'eval'					=> array('multiple'=>true),
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['groups'],
+			'exclude'					=> true,
+			'inputType'					=> 'checkbox',
+			'foreignKey'				=> 'tl_member_group.name',
+			'eval'						=> array('multiple'=>true),
 		),
 		'guests' => array
 		(
-			'label'					=> &$GLOBALS['TL_LANG']['tl_inserttags']['guests'],
-			'exclude'				=> true,
-			'filter'				=> true,
-			'inputType'				=> 'checkbox',
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['guests'],
+			'exclude'					=> true,
+			'filter'					=> true,
+			'inputType'					=> 'checkbox',
 		),
 	)
 );
@@ -412,6 +415,11 @@ class tl_inserttags extends Backend
 	}
 	
 	
+	/**
+	 * Find PHP operator for string operator
+	 * @param  string
+	 * @return string
+	 */
 	public function operatorForFormula($formula)
 	{
 		switch( $formula )

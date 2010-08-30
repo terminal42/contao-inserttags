@@ -1,13 +1,15 @@
 <?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
 
 /**
- * TYPOlight webCMS
- * Copyright (C) 2005 Leo Feyer
+ * Contao Open Source CMS
+ * Copyright (C) 2005-2010 Leo Feyer
+ *
+ * Formerly known as TYPOlight Open Source CMS.
  *
  * This program is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
- * version 2.1 of the License, or (at your option) any later version.
+ * version 3 of the License, or (at your option) any later version.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -16,18 +18,47 @@
  * 
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
- * Software Foundation website at http://www.gnu.org/licenses/.
+ * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Andreas Schempp 2009
+ * @copyright  Andreas Schempp 2008-2010
  * @author     Andreas Schempp <andreas@schempp.ch>
  * @license    http://opensource.org/licenses/lgpl-3.0.html
+ * @version    $Id$
  */
  
  
 class InsertTags extends Frontend
 {
+	
+	/**
+	 * Current object instance (Singleton)
+	 * @var object
+	 */
+	private static $objInstance;
+	
+	
+	/**
+	 * Prevent cloning of the object (Singleton)
+	 */
+	final private function __clone() {}
 
+
+	/**
+	 * Return the current object instance (Singleton)
+	 * @return object
+	 */
+	public static function getInstance()
+	{
+		if (!is_object(self::$objInstance))
+		{
+			self::$objInstance = new InsertTags();
+		}
+
+		return self::$objInstance;
+	}
+	
+	
 	/**
 	 * Replace tags in outputFrontendTemplate and outputBackendTemplate functions.
 	 * 
@@ -40,31 +71,47 @@ class InsertTags extends Frontend
 	{
 		if (basename($_SERVER['REQUEST_URI']) == 'install.php' || !$this->Database->tableExists('tl_inserttags') || !$this->Database->fieldExists('sorting', 'tl_inserttags'))
 			return $strBuffer;
-				
-		$arrSearch = array();
-		$arrReplace = array();
-		$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE backend=? " . (TL_MODE == 'FE' ? "AND cacheOutput=?" : "") . " ORDER BY sorting")
-								  ->execute((TL_MODE == 'BE' ? 1 : ''), 1);
+			
+		$tags = preg_split('/{{(custom::[^}]+)}}/', $strBuffer, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+		$strBuffer = '';
 		
-		while( $arrRow = $objTags->fetchAssoc() )
+		for($_rit=0; $_rit<count($tags); $_rit=$_rit+2)
 		{
-			// Skip tag if it is already present
-			if (in_array('{{custom::'.$arrRow['tag'].'}}', $arrSearch))
+			$strBuffer .= $tags[$_rit];
+			$strTag = $tags[$_rit+1];
+
+			// Skip empty tags
+			if (!strlen($strTag))
 			{
 				continue;
 			}
-			
-			if ($this->validateTag($arrRow))
+							
+			if ($GLOBALS['INSERTAGS'][$strTag] > 5)
 			{
-				$arrSearch[] = '{{custom::'.$arrRow['tag'].'}}';
-				$arrReplace[] = $this->replaceInsertTags($arrRow['replacement']);
+				$this->log('WARNING: InsertTag "' . $strTag . '" caused an endless loop!', 'InsertTags replaceDynamicTags()', TL_ERROR);
+				return false;
 			}
+			
+			$arrTag = explode('::', $strTag);
+			
+			$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND backend=? " . (TL_MODE == 'FE' ? "AND cacheOutput='1'" : "") . " ORDER BY sorting")
+									  ->execute($arrTag[1], (TL_MODE == 'BE' ? '1' : ''));
+			
+			while( $arrRow = $objTags->fetchAssoc() )
+			{
+				if ($this->validateTag($arrRow))
+				{
+					$GLOBALS['INSERTAGS'][$strTag]++;
+					$strBuffer .= $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement']), $arrTag);
+					break;
+				}
+			}
+			
+			$strBuffer .= '{{' . $strTag . '}}';
 		}
-		
-		if (count($arrSearch) && count($arrReplace))
-			return str_replace($arrSearch, $arrReplace, $strBuffer);
-		else
-			return $strBuffer;
+			
+		return $strBuffer;
 	}
 	
 	
@@ -79,33 +126,30 @@ class InsertTags extends Frontend
 	 */
 	public function replaceDynamicTags($strTag)
 	{
-		$arrTag = trimsplit('::', $strTag);
+		if ($GLOBALS['INSERTAGS'][$strTag] > 5)
+		{
+			$this->log('WARNING: InsertTag "' . $strTag . '" caused an endless loop!', 'InsertTags replaceDynamicTags()', TL_ERROR);
+			return '';
+		}
+		
+		$arrTag = explode('::', $strTag);
 		
 		if ($arrTag[0] !== 'custom')
 			return false;
-			
-		if ($GLOBALS['INSERTAGS'][$arrTag[1]] > 5)
-		{
-			$this->log('WARNING: InsertTag "' . $strTag . '" caused an endless loop!', 'InsertTags replaceDynamicTags()', TL_ERROR);
-			return false;
-		}
-			
+				
 		$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND backend='' AND cacheOutput='' ORDER BY sorting")
 								  ->execute($arrTag[1]);
 								  
-		if ($objTags->numRows == 0)
-			return false;
-			
 		while( $arrRow = $objTags->fetchAssoc() )
 		{
 			if ($this->validateTag($arrRow))
 			{
-				$GLOBALS['INSERTAGS'][$arrTag[1]]++;
-				return $this->replaceInsertTags($arrRow['replacement']);
+				$GLOBALS['INSERTAGS'][$strTag]++;
+				return $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement']), $arrTag);
 			}
 		}
 		
-		return false;
+		return '';
 	}
 	
 	
@@ -304,35 +348,6 @@ class InsertTags extends Frontend
 		}
 	
 		return true;
-	}
-	
-	
-	/**
-	 * Replaces insert tags with values from language files (if enabled).
-	 * 
-	 * @access public
-	 * @param string $strTag
-	 * @return mixed
-	 */
-	public function replaceLanguageTags($strTag)
-	{
-		$arrTag = trimsplit('::', $strTag);
-		
-		if ($arrTag[0] !== 'langfile')
-			return false;
-			
-		// Return empty string not false to prevent triggering next hook
-		if (!$GLOBALS['TL_CONFIG']['allowLanguageTags'])
-			return '';
-		
-		$varValue = $GLOBALS['TL_LANG'];	
-		for( $i=1; $i<count($arrTag); $i++ )
-		{
-			$varValue = $varValue[$arrTag[$i]];
-		}
-		
-		// Make sure we return a string value
-		return strval($varValue);
 	}
 }
 
