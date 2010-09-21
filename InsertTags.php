@@ -86,12 +86,6 @@ class InsertTags extends Frontend
 			{
 				continue;
 			}
-							
-			if ($GLOBALS['INSERTAGS'][$strTag] > 5)
-			{
-				$this->log('WARNING: InsertTag "' . $strTag . '" caused an endless loop!', 'InsertTags replaceDynamicTags()', TL_ERROR);
-				return false;
-			}
 			
 			$arrTag = explode('::', $strTag);
 			
@@ -126,7 +120,7 @@ class InsertTags extends Frontend
 	 */
 	public function replaceDynamicTags($strTag)
 	{
-		if ($GLOBALS['INSERTAGS'][$strTag] > 5)
+		if ($GLOBALS['INSERTAGS'][$strTag] > 50)
 		{
 			$this->log('WARNING: InsertTag "' . $strTag . '" caused an endless loop!', 'InsertTags replaceDynamicTags()', TL_ERROR);
 			return '';
