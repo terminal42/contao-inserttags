@@ -21,14 +21,17 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  terminal42 gmbh 2008-2012
+ * @copyright  terminal42 gmbh 2012
  * @author     Andreas Schempp <andreas.schempp@terminal42.ch>
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
 
 /**
- * Back end modules
+ * Register the classes
  */
-$GLOBALS['TL_LANG']['MOD']['inserttags'] = array('Insert-Tags', 'This module allows you to create custom insert-tags and let them be replaced by some content. This can be very helpful if you have some content wich you want to have on multiple pages, like your phone number. If your phone number changes, you will need to change it once, and will never forget to update a subpage.');
+ClassLoader::addClasses(array
+(
+	'InsertTags'         => 'system/modules/inserttags/InsertTags.php',
+));
 

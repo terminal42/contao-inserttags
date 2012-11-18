@@ -1,8 +1,8 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -10,21 +10,20 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Andreas Schempp 2008-2011
- * @author     Andreas Schempp <andreas@schempp.ch>
+ * @copyright  terminal42 gmbh 2008-2012
+ * @author     Andreas Schempp <andreas.schempp@terminal42.ch>
  * @license    http://opensource.org/licenses/lgpl-3.0.html
- * @version    $Id$
  */
 
 
@@ -119,7 +118,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 		'__selector__'					=> array('timing', 'useCondition', 'limitpages', 'limitLanguages', 'useCounter', 'protected'),
 		'default'						=> '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,limitLanguages,guests,protected;{advanced_legend:hide},timing,useCondition,useCounter;{expert_legend:hide},backend,cacheOutput',
 	),
-	
+
 	// Subpalettes
 	'subpalettes' => array
 	(
@@ -357,39 +356,39 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 
 class tl_inserttags extends Backend
 {
-	
+
 	public function labelCallback($arrRow)
 	{
 		$label = $arrRow['tag'];
-		
+
 		if ($arrRow['useCondition'] && (strlen($arrRow['conditionQuery']) && strlen($arrRow['conditionValue'])))
 		{
 			$label .= '<span style="color:#b3b3b3; padding-left:10px;">'.$arrRow['conditionQuery'].' '.$this->operatorForFormula($arrRow['conditionFormula']).' '.$arrRow['conditionValue'].'</span>';
 		}
-		
+
 		if ($arrRow['timing'])
 		{
 			$start_date = deserialize($arrRow['start_date']);
 			$start_time = deserialize($arrRow['start_time']);
 			$end_date = deserialize($arrRow['end_date']);
 			$end_time = deserialize($arrRow['end_time']);
-			
+
 			$start = str_replace(array('Y', 'm', 'd', 'H', 'i'), array((strlen($start_date[2]) ? '<span style="color:#FF0000">'.$start_date[2].'</span>' : date('Y')), (strlen($start_date[1]) ? '<span style="color:#FF0000">'.$start_date[1].'</span>' : date('m')), (strlen($start_date[0]) ? '<span style="color:#FF0000">'.$start_date[0].'</span>' : date('d')), (strlen($start_time[0]) ? '<span style="color:#FF0000">'.$start_time[0].'</span>' : date('H')), (strlen($start_time[1]) ? '<span style="color:#FF0000">'.$start_time[1].'</span>' : date('i'))), $GLOBALS['TL_CONFIG']['datimFormat']);
-			
+
 			$end = str_replace(array('Y', 'm', 'd', 'H', 'i'), array((strlen($end_date[2]) ? '<span style="color:#FF0000">'.$end_date[2].'</span>' : date('Y')), (strlen($end_date[1]) ? '<span style="color:#FF0000">'.$end_date[1].'</span>' : date('m')), (strlen($end_date[0]) ? '<span style="color:#FF0000">'.$end_date[0].'</span>' : date('d')), (strlen($end_time[0]) ? '<span style="color:#FF0000">'.$end_time[0].'</span>' : date('H')), (strlen($end_time[1]) ? '<span style="color:#FF0000">'.$end_time[1].'</span>' : date('i'))), $GLOBALS['TL_CONFIG']['datimFormat']);
-			
+
 			$label .= sprintf('<span style="color:#b3b3b3; padding-left:10px;">[%s - %s]</span>', $start, $end);
 		}
-		
+
 		if (strlen($arrRow['description']))
 		{
 			$label .= '<span style="color:#b3b3b3; padding-left:10px;">('.$arrRow['description'].')</span>';
 		}
-		
+
 		return '<img width="18" height="18" style="margin-left: 0px;" alt="" src="system/modules/inserttags/html/page.gif"/> ' . $label;
 	}
-	
-	
+
+
 	/**
 	 * Return the paste button
 	 * @param object
@@ -413,8 +412,8 @@ class tl_inserttags extends Backend
 
 		return (($arrClipboard['mode'] == 'cut' && $arrClipboard['id'] == $row['id']) || $cr) ? $this->generateImage('pasteafter_.gif').' ' : '<a href="'.$this->addToUrl('act='.$arrClipboard['mode'].'&mode=1&pid='.$row['id'].'&id='.$arrClipboard['id']).'" title="'.specialchars(sprintf($GLOBALS['TL_LANG'][$dc->table]['pasteafter'][1], $row['id'])).'" onclick="Backend.getScrollOffset();">'.$imagePasteAfter.'</a> ';
 	}
-	
-	
+
+
 	/**
 	 * Find PHP operator for string operator
 	 * @param  string
@@ -427,35 +426,35 @@ class tl_inserttags extends Backend
 			case 'eq':
 				return '=';
 				break;
-				
+
 			case 'neq':
 				return '!=';
 				break;
-			
+
 			case 'lt':
 				return '<';
 				break;
-				
+
 			case 'gt':
 				return '>';
 				break;
-				
+
 			case 'elt':
 				return '<=';
 				break;
-				
+
 			case 'egt':
 				return '>=';
 				break;
 		}
-		
+
 		return $GLOBALS['TL_LANG']['tl_inserttags'][$formula] ? $GLOBALS['TL_LANG']['tl_inserttags'][$formula] : $formula;
 	}
-	
-	
+
+
 	/**
 	 * Disable rich text editor if checkbox is set.
-	 * 
+	 *
 	 * @access public
 	 * @param mixed $dc
 	 * @return void
@@ -466,7 +465,7 @@ class tl_inserttags extends Backend
 		{
 			$objRow = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE id=?")
 									 ->execute($dc->id);
-									 
+
 			if ($objRow->disableRTE)
 			{
 				unset($GLOBALS['TL_DCA']['tl_inserttags']['fields']['replacement']['eval']['rte']);

@@ -1,8 +1,8 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -10,21 +10,20 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Andreas Schempp 2008-2010
- * @author     Andreas Schempp <andreas@schempp.ch>
+ * @copyright  terminal42 gmbh 2008-2012
+ * @author     Andreas Schempp <andreas.schempp@terminal42.ch>
  * @license    http://opensource.org/licenses/lgpl-3.0.html
- * @version    $Id$
  */
 
 
@@ -41,10 +40,10 @@ $GLOBALS['TL_LANG']['tl_inserttags']['start_time']		= array('Start time', 'Pleas
 $GLOBALS['TL_LANG']['tl_inserttags']['end_date']		= array('End date', 'Please enter the end date for this tag (day / month / year).');
 $GLOBALS['TL_LANG']['tl_inserttags']['end_time']		= array('End time', 'Please enter the end time for this tag (hour / minute).');
 $GLOBALS['TL_LANG']['tl_inserttags']['backend']			= array('Apply InsertTag to', 'Please select if you want to apply this InsertTag to front- or backend.');
-$GLOBALS['TL_LANG']['tl_inserttags']['cacheOutput']		= array('Cache Output', 'Please check here if you want to apply this InsertTag before TYPOlight caches the page.');
+$GLOBALS['TL_LANG']['tl_inserttags']['cacheOutput']		= array('Cache Output', 'Please check here if you want to apply this InsertTag before Contao caches the page.');
 $GLOBALS['TL_LANG']['tl_inserttags']['useCondition']	= array('Condition', 'Please check here, if you want to use this insert tag on a certain condition.');
 $GLOBALS['TL_LANG']['tl_inserttags']['conditionType']	= array('Query-Type', 'If you select database, enter a valid SQL query. The first field of the first result row will be returned. You can use insert tags in the query.');
-$GLOBALS['TL_LANG']['tl_inserttags']['conditionQuery']	= array('Query', 'Please enter a query. This could be a TYPOlight insert tag for example.');
+$GLOBALS['TL_LANG']['tl_inserttags']['conditionQuery']	= array('Query', 'Please enter a query. This could be a Contao insert tag for example.');
 $GLOBALS['TL_LANG']['tl_inserttags']['conditionFormula']= array('Formula', 'Please choose a formula to compare query with value.');
 $GLOBALS['TL_LANG']['tl_inserttags']['conditionValue']	= array('Value', 'Please enter the value your query should match.');
 $GLOBALS['TL_LANG']['tl_inserttags']['limitpages']		= array('Limit pages', 'Please check here, if you want to limit this insert tag to certain pages.');

@@ -1,8 +1,8 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -10,21 +10,20 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Andreas Schempp 2008-2010
- * @author     Andreas Schempp <andreas@schempp.ch>
+ * @copyright  terminal42 gmbh 2008-2012
+ * @author     Andreas Schempp <andreas.schempp@terminal42.ch>
  * @license    http://opensource.org/licenses/lgpl-3.0.html
- * @version    $Id$
  */
 
 
@@ -41,10 +40,10 @@ $GLOBALS['TL_LANG']['tl_inserttags']['start_time']		= array('Startzeit', 'Tragen
 $GLOBALS['TL_LANG']['tl_inserttags']['end_date']		= array('Enddatum', 'Tragen Sie das Enddatum in die Felder ein (Tag / Monat / Jahr).');
 $GLOBALS['TL_LANG']['tl_inserttags']['end_time']		= array('Endzeit', 'Tragen Sie die Endzeit in die Felder ein (Stunde / Minute).');
 $GLOBALS['TL_LANG']['tl_inserttags']['backend']			= array('Platzhalter anwenden im', 'Bitte wählen Sie ob dieser Platzhalter im Front- oder Backend angewendet werden soll.');
-$GLOBALS['TL_LANG']['tl_inserttags']['cacheOutput']		= array('Ausgabe zwischenspeichern', 'Klicken Sie hier, wenn dieser Platzhalter vor dem TYPOlight Cache einer Seite angewendet werden soll.');
+$GLOBALS['TL_LANG']['tl_inserttags']['cacheOutput']		= array('Ausgabe zwischenspeichern', 'Klicken Sie hier, wenn dieser Platzhalter vor dem Contao Cache einer Seite angewendet werden soll.');
 $GLOBALS['TL_LANG']['tl_inserttags']['useCondition']	= array('Bedingung', 'Klicken Sie hier, wenn Sie dieses Feld nur unter gewissen Bedingungen verwenden wollen.');
 $GLOBALS['TL_LANG']['tl_inserttags']['conditionType']	= array('Abfrage-Typ', 'Wenn Sie "Datenbank" wählen, geben Sie eine SQL Abfrage in das Feld ein. Sie können innerhalb der Abfrage wiederum Platzhalter verwenden.');
-$GLOBALS['TL_LANG']['tl_inserttags']['conditionQuery']	= array('Abfrage', 'Geben Sie die Abfrage ein. Dies kann z.B. ein TYPOlight Insert-Tag sein.');
+$GLOBALS['TL_LANG']['tl_inserttags']['conditionQuery']	= array('Abfrage', 'Geben Sie die Abfrage ein. Dies kann z.B. ein Contao Insert-Tag sein.');
 $GLOBALS['TL_LANG']['tl_inserttags']['conditionFormula']= array('Formel', 'Wählen Sie eine Formel für den Vergleich zwischen Abfrage und Wert.');
 $GLOBALS['TL_LANG']['tl_inserttags']['conditionValue']	= array('Wert', 'Geben Sie den Wert ein, dem die Abfragen entsprechen soll.');
 $GLOBALS['TL_LANG']['tl_inserttags']['limitpages']		= array('Seiten limitiert', 'Klicken Sie hier, wenn Sie diesen Platzhalter auf gewisse Seiten limitieren wollen.');
