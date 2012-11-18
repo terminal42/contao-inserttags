@@ -2,22 +2,22 @@
 -- *                                                        *
 -- * IMPORTANT NOTE                                         *
 -- *                                                        *
--- * Do not import this file manually but use the TYPOlight *
+-- * Do not import this file manually but use the Contao    *
 -- * install tool to create and maintain database tables!   *
 -- *                                                        *
 -- **********************************************************
 
 
--- 
+--
 -- Table `tl_inserttags`
--- 
+--
 
 CREATE TABLE `tl_inserttags` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `pid` int(10) unsigned NOT NULL default '0',
   `tstamp` int(10) unsigned NOT NULL default '0',
-  `sorting` int(10) unsigned NOT NULL default '0', 
-  `type` varchar(255) NOT NULL default '', 
+  `sorting` int(10) unsigned NOT NULL default '0',
+  `type` varchar(255) NOT NULL default '',
   `tag` varchar(255) NOT NULL default '',
   `replacement` text NULL,
   `disableRTE` char(1) NOT NULL default '',
