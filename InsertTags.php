@@ -293,16 +293,13 @@ class InsertTags extends Frontend
 		// Limit pages
 		if ($arrRow['limitpages'])
 		{
-			$pages = deserialize($arrRow['pages']);
+			$pages = deserialize($arrRow['pages'], true);
 			$allpages = $pages;
 
 			if ($arrRow['includesubpages'])
 			{
-				foreach($pages as $page)
-				{
-					$subpages = $this->getChildRecords($page, 'tl_page');
-					$allpages = array_merge($allpages, $subpages);
-				}
+				$subpages = $this->getChildRecords($pages, 'tl_page');
+				$allpages = array_merge($allpages, $subpages);
 			}
 
 			array_unique($allpages);
