@@ -192,9 +192,6 @@ class InsertTags extends Frontend
 				case 'database':
 					try
 					{
-						// For some reason, = is escaped in the string!
-						$query = trim(str_replace('&#61;', '=', $query));
-
 						$query = $this->Database->prepare($query)->execute()->fetchRow();
 						$query = $query[0];
 					}

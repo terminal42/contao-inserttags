@@ -280,7 +280,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['conditionQuery'],
 			'inputType'					=> 'text',
 			'exclude'					=> true,
-			'eval'						=> array('maxlength'=>255, 'tl_class'=>'long'),
+			'eval'						=> array('maxlength'=>255, 'decodeEntities'=>true, 'tl_class'=>'long'),
 		),
 		'conditionFormula' => array
 		(
