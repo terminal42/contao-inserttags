@@ -88,15 +88,15 @@ class InsertTags extends Frontend
 
 			$arrTag = explode('::', $strTag);
 
-			$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND backend=? " . (TL_MODE == 'FE' ? "AND cacheOutput='1'" : "") . " ORDER BY sorting")
-									  ->execute($arrTag[1], (TL_MODE == 'BE' ? '1' : ''));
+			$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND mode=? " . (TL_MODE == 'FE' ? "AND cacheOutput='1'" : "") . " ORDER BY sorting")
+									  ->execute($arrTag[1], TL_MODE);
 
 			while( $arrRow = $objTags->fetchAssoc() )
 			{
 				if ($this->validateTag($arrRow))
 				{
 					$GLOBALS['INSERTAGS'][$strTag]++;
-					$strBuffer .= $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement']), $arrTag);
+					$strBuffer .= $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement'], false), $arrTag);
 					break;
 				}
 			}
@@ -130,7 +130,7 @@ class InsertTags extends Frontend
 		if ($arrTag[0] !== 'custom')
 			return false;
 
-		$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND backend='' AND cacheOutput='' ORDER BY sorting")
+		$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND mode='FE' AND cacheOutput='' ORDER BY sorting")
 								  ->execute($arrTag[1]);
 
 		while( $arrRow = $objTags->fetchAssoc() )
@@ -138,7 +138,7 @@ class InsertTags extends Frontend
 			if ($this->validateTag($arrRow))
 			{
 				$GLOBALS['INSERTAGS'][$strTag]++;
-				return $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement']), $arrTag);
+				return $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement'], false), $arrTag);
 			}
 		}
 
@@ -185,16 +185,13 @@ class InsertTags extends Frontend
 
 		if ($arrRow['useCondition'])
 		{
-			$query = $this->replaceInsertTags($arrRow['conditionQuery']);
+			$query = $this->replaceInsertTags($arrRow['conditionQuery'], false);
 
 			switch( $arrRow['conditionType'] )
 			{
 				case 'database':
 					try
 					{
-						// For some reason, = is escaped in the string!
-						$query = trim(str_replace('&#61;', '=', $query));
-
 						$query = $this->Database->prepare($query)->execute()->fetchRow();
 						$query = $query[0];
 					}
@@ -202,7 +199,7 @@ class InsertTags extends Frontend
 					// Something went wrong with the database query. Use as text instead
 					catch(Exception $e)
 					{
-						$query = $this->replaceInsertTags($arrRow['conditionQuery']);
+						$query = $this->replaceInsertTags($arrRow['conditionQuery'], false);
 					}
 					break;
 			}

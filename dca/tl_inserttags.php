@@ -116,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 	'palettes' => array
 	(
 		'__selector__'					=> array('timing', 'useCondition', 'limitpages', 'limitLanguages', 'useCounter', 'protected'),
-		'default'						=> '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,limitLanguages,guests,protected;{advanced_legend:hide},timing,useCondition,useCounter;{expert_legend:hide},backend,cacheOutput',
+		'default'						=> '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,limitLanguages,guests,protected;{advanced_legend:hide},timing,useCondition,useCounter;{expert_legend:hide},mode,cacheOutput',
 	),
 
 	// Subpalettes
@@ -240,13 +240,14 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 			'options'					=> $this->getLanguages(),
 			'eval'						=> array('multiple'=>true, 'size'=>'10'),
 		),
-		'backend' => array
+		'mode' => array
 		(
-			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['backend'],
+			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['mode'],
+			'default'                   => 'fe',
 			'inputType'					=> 'radio',
 			'exclude'					=> true,
 			'filter'					=> true,
-			'options'					=> array(''=>'fe', '1'=>'be'),
+			'options'					=> array('FE', 'BE'),
 			'reference'					=> &$GLOBALS['TL_LANG']['tl_inserttags'],
 		),
 		'cacheOutput' => array
@@ -279,7 +280,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['conditionQuery'],
 			'inputType'					=> 'text',
 			'exclude'					=> true,
-			'eval'						=> array('maxlength'=>255, 'tl_class'=>'long'),
+			'eval'						=> array('maxlength'=>255, 'decodeEntities'=>true, 'tl_class'=>'long'),
 		),
 		'conditionFormula' => array
 		(
