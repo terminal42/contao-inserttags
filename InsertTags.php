@@ -96,7 +96,7 @@ class InsertTags extends Frontend
 				if ($this->validateTag($arrRow))
 				{
 					$GLOBALS['INSERTAGS'][$strTag]++;
-					$strBuffer .= $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement']), $arrTag);
+					$strBuffer .= $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement'], false), $arrTag);
 					break;
 				}
 			}
@@ -138,7 +138,7 @@ class InsertTags extends Frontend
 			if ($this->validateTag($arrRow))
 			{
 				$GLOBALS['INSERTAGS'][$strTag]++;
-				return $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement']), $arrTag);
+				return $this->parseSimpleTokens($this->replaceInsertTags($arrRow['replacement'], false), $arrTag);
 			}
 		}
 
@@ -185,7 +185,7 @@ class InsertTags extends Frontend
 
 		if ($arrRow['useCondition'])
 		{
-			$query = $this->replaceInsertTags($arrRow['conditionQuery']);
+			$query = $this->replaceInsertTags($arrRow['conditionQuery'], false);
 
 			switch( $arrRow['conditionType'] )
 			{
@@ -199,7 +199,7 @@ class InsertTags extends Frontend
 					// Something went wrong with the database query. Use as text instead
 					catch(Exception $e)
 					{
-						$query = $this->replaceInsertTags($arrRow['conditionQuery']);
+						$query = $this->replaceInsertTags($arrRow['conditionQuery'], false);
 					}
 					break;
 			}
