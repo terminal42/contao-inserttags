@@ -88,8 +88,8 @@ class InsertTags extends Frontend
 
 			$arrTag = explode('::', $strTag);
 
-			$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND backend=? " . (TL_MODE == 'FE' ? "AND cacheOutput='1'" : "") . " ORDER BY sorting")
-									  ->execute($arrTag[1], (TL_MODE == 'BE' ? '1' : ''));
+			$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND mode=? " . (TL_MODE == 'FE' ? "AND cacheOutput='1'" : "") . " ORDER BY sorting")
+									  ->execute($arrTag[1], TL_MODE);
 
 			while( $arrRow = $objTags->fetchAssoc() )
 			{
@@ -130,7 +130,7 @@ class InsertTags extends Frontend
 		if ($arrTag[0] !== 'custom')
 			return false;
 
-		$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND backend='' AND cacheOutput='' ORDER BY sorting")
+		$objTags = $this->Database->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND mode='FE' AND cacheOutput='' ORDER BY sorting")
 								  ->execute($arrTag[1]);
 
 		while( $arrRow = $objTags->fetchAssoc() )

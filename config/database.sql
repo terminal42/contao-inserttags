@@ -32,7 +32,7 @@ CREATE TABLE `tl_inserttags` (
   `includesubpages` char(1) NOT NULL default '',
   `limitLanguages` char(1) NOT NULL default '',
   `languages` blob NULL,
-  `backend` char(1) NOT NULL default '',
+  `mode` varchar(2) NOT NULL default '',
   `cacheOutput` char(1) NOT NULL default '',
   `useCondition` char(1) NOT NULL default '',
   `conditionType` varchar(255) NOT NULL default '',
