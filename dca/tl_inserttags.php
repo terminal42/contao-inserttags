@@ -214,7 +214,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['pages'],
 			'inputType'					=> 'pageTree',
 			'exclude'					=> true,
-			'eval'						=> array('fieldType'=>'checkbox'),
+			'eval'						=> array('fieldType'=>'checkbox', 'multiple'=>true),
 		),
 		'includesubpages' => array
 		(
