@@ -226,7 +226,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = array
 		'mode' => array
 		(
 			'label'						=> &$GLOBALS['TL_LANG']['tl_inserttags']['mode'],
-			'default'                   => 'fe',
+			'default'                   			=> 'FE',
 			'inputType'					=> 'radio',
 			'exclude'					=> true,
 			'filter'					=> true,
