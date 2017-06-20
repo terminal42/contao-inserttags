@@ -1,18 +1,18 @@
 {
-  "name": "heimrichhannot/contao-inserttags",
-  "description": "Fork of terminal42/contao-inserttags for contao 4 support",
+  "name": "terminal42/contao-inserttags",
+  "description": "Contao extension to create InsertTags to replace content in front- or backend.",
   "keywords": ["contao", "inserttags", "backend", "frontend"],
   "type": "contao-module",
   "license": "LGPL-3.0+",
   "authors": [
     {
-      "name": "terminal24 gmbh",
-      "homepage": "https://www.heimrichhannot.ch"
+      "name": "terminal42 gmbh",
+      "homepage": "https://www.terminal42.ch"
     }
   ],
   "require": {
     "php": "~5.4 || ~7.0",
-    "contao/core-bundle": "^3.5.1 || ~4.1",
+    "contao/core-bundle": "^3.5.1 || ~4.4",
     "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
   },
   "replace": {
