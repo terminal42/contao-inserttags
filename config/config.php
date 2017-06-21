@@ -15,15 +15,14 @@
  */
 $GLOBALS['BE_MOD']['content']['inserttags'] = array
 (
-	'tables'	=> array('tl_inserttags'),
-	'icon'		=> 'system/modules/inserttags/html/icon.gif',
+    'tables'    => array('tl_inserttags'),
+    'icon'      => 'system/modules/inserttags/html/icon.gif',
 );
 
 
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['outputFrontendTemplate'][]	= array('InsertTags', 'replaceCachedTags');
-$GLOBALS['TL_HOOKS']['outputBackendTemplate'][]		= array('InsertTags', 'replaceCachedTags');
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][]			= array('InsertTags', 'replaceDynamicTags');
-
+$GLOBALS['TL_HOOKS']['outputFrontendTemplate'][]    = array('InsertTags', 'replaceCachedTags');
+$GLOBALS['TL_HOOKS']['outputBackendTemplate'][]     = array('InsertTags', 'replaceCachedTags');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][]         = array('InsertTags', 'replaceDynamicTags');
