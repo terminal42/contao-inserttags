@@ -23,6 +23,6 @@ $GLOBALS['BE_MOD']['content']['inserttags'] = array
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['outputFrontendTemplate'][]    = array('InsertTags', 'replaceCachedTags');
-$GLOBALS['TL_HOOKS']['outputBackendTemplate'][]     = array('InsertTags', 'replaceCachedTags');
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][]         = array('InsertTags', 'replaceDynamicTags');
+$GLOBALS['TL_HOOKS']['outputFrontendTemplate'][]    = array('InsertTags\InsertTags', 'replaceCachedTags');
+$GLOBALS['TL_HOOKS']['outputBackendTemplate'][]     = array('InsertTags\InsertTags', 'replaceCachedTags');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][]         = array('InsertTags\InsertTags', 'replaceDynamicTags');

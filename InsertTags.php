@@ -9,6 +9,10 @@
  * @link       http://github.com/terminal42/contao-inserttags
  */
 
+namespace InsertTags;
+
+use Contao\Frontend;
+use Contao\Controller;
 
 class InsertTags extends Frontend
 {
@@ -78,7 +82,7 @@ class InsertTags extends Frontend
                 if ($this->validateTag($arrRow)) {
                     $GLOBALS['INSERTAGS'][$strTag]++;
                     $strBuffer .= \StringUtil::parseSimpleTokens(
-                        \Controller::replaceInsertTags($arrRow['replacement'], false),
+                        Controller::replaceInsertTags($arrRow['replacement'], false),
                         $arrTag
                     );
                     break;
@@ -123,7 +127,7 @@ class InsertTags extends Frontend
                 $GLOBALS['INSERTAGS'][$strTag]++;
 
                 return \StringUtil::parseSimpleTokens(
-                    \Controller::replaceInsertTags($arrRow['replacement'], false),
+                    Controller::replaceInsertTags($arrRow['replacement'], false),
                     $arrTag
                 );
             }
@@ -173,16 +177,16 @@ class InsertTags extends Frontend
         }
 
         if ($arrRow['useCondition']) {
-            $query = \Controller::replaceInsertTags($arrRow['conditionQuery'], false);
+            $query = Controller::replaceInsertTags($arrRow['conditionQuery'], false);
 
             switch ($arrRow['conditionType']) {
                 case 'database':
                     try {
                         $query = \Database::getInstance()->execute($query)->fetchRow();
                         $query = $query[0];
-                    } catch (Exception $e) {
+                    } catch (\Exception $e) {
                         // Something went wrong with the database query. Use as text instead
-                        $query = \Controller::replaceInsertTags($arrRow['conditionQuery'], false);
+                        $query = Controller::replaceInsertTags($arrRow['conditionQuery'], false);
                     }
                     break;
             }
