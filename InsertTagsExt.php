@@ -10,7 +10,7 @@
  */
 
 
-class InsertTags extends Frontend
+class InsertTagsExt extends Frontend
 {
     /**
      * Current object instance (Singleton)
@@ -31,7 +31,7 @@ class InsertTags extends Frontend
     public static function getInstance()
     {
         if (!is_object(self::$objInstance)) {
-            self::$objInstance = new InsertTags();
+            self::$objInstance = new InsertTagsExt();
         }
 
         return self::$objInstance;
