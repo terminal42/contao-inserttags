@@ -10,7 +10,7 @@
  */
 
 
-class InsertTags extends Frontend
+class InsertTags extends \Contao\InsertTags
 {
     /**
      * Current object instance (Singleton)
