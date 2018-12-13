@@ -10,7 +10,7 @@
  */
 
 
-class InsertTags extends \Contao\InsertTags
+class InsertTagsHelper extends \Contao\InsertTags
 {
     /**
      * Current object instance (Singleton)
@@ -31,7 +31,7 @@ class InsertTags extends \Contao\InsertTags
     public static function getInstance()
     {
         if (!is_object(self::$objInstance)) {
-            self::$objInstance = new InsertTags();
+            self::$objInstance = new InsertTagsHelper();
         }
 
         return self::$objInstance;
@@ -70,8 +70,8 @@ class InsertTags extends \Contao\InsertTags
             $arrTag = explode('::', $strTag);
 
             $objTags = \Database::getInstance()
-                ->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND mode=? $cacheOutput ORDER BY sorting")
-                ->execute($arrTag[1], TL_MODE)
+                                ->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND mode=? $cacheOutput ORDER BY sorting")
+                                ->execute($arrTag[1], TL_MODE)
             ;
 
             while ($arrRow = $objTags->fetchAssoc()) {
@@ -114,8 +114,8 @@ class InsertTags extends \Contao\InsertTags
         }
 
         $objTags = \Database::getInstance()
-            ->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND mode='FE' AND cacheOutput='' ORDER BY sorting")
-            ->execute($arrTag[1])
+                            ->prepare("SELECT * FROM tl_inserttags WHERE tag=? AND mode='FE' AND cacheOutput='' ORDER BY sorting")
+                            ->execute($arrTag[1])
         ;
 
         while ($arrRow = $objTags->fetchAssoc()) {
@@ -325,13 +325,13 @@ class InsertTags extends \Contao\InsertTags
         if ($arrRow['useCounter']) {
             if ($arrRow['counterValue'] == 0 && $arrRow['counterRepeat']) {
                 \Database::getInstance()
-                    ->prepare("UPDATE tl_inserttags SET counterValue=counterDefault WHERE id=?")
-                    ->execute($arrRow['id'])
+                         ->prepare("UPDATE tl_inserttags SET counterValue=counterDefault WHERE id=?")
+                         ->execute($arrRow['id'])
                 ;
             } elseif ($arrRow['counterValue'] > 0) {
                 \Database::getInstance()
-                    ->prepare("UPDATE tl_inserttags SET counterValue=(counterValue-1) WHERE id=?")
-                    ->execute($arrRow['id'])
+                         ->prepare("UPDATE tl_inserttags SET counterValue=(counterValue-1) WHERE id=?")
+                         ->execute($arrRow['id'])
                 ;
 
                 return false;
@@ -342,3 +342,6 @@ class InsertTags extends \Contao\InsertTags
     }
 }
 
+if (!class_exists('InsertTags', false)) {
+    class_alias('InsertTagsHelper', 'InsertTags', false);
+}
