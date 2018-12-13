@@ -15,6 +15,7 @@
  */
 ClassLoader::addClasses(array
 (
-    'InsertTags'         => 'system/modules/inserttags/InsertTags.php',
+    'InsertTags'       => 'system/modules/inserttags/InsertTags.php',
+    'InsertTagsHelper' => 'system/modules/inserttags/InsertTagsHelper.php',
 ));
 
