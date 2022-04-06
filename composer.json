@@ -1,6 +1,6 @@
 {
     "name": "terminal42/contao-inserttags",
-    "description": "Contao extension to create InsertTags to replace content in frontend.",
+    "description": "Contao extension to create custom insert tags.",
     "keywords": ["contao", "inserttags", "backend", "frontend"],
     "type": "contao-bundle",
     "license": "MIT",
