@@ -10,7 +10,7 @@ Some options present in version 1.x have been removed. All changes are described
 ### Removed "timing"
 
 The timing feature has been removed completely, because it would kill HTTP caching. If you need a replacement,
-please consider the JavaScript solution with an optional AJAX request(s).
+please consider a JavaScript solution.
 
 ### Removed "limitLanguages"
 
