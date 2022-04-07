@@ -18,7 +18,7 @@ This option has been removed completely, use the limiting insert tags to certain
 
 ### Removed "useCondition"
 
-This option has been removed completely.
+This option has been removed completely as this too, would make HTTP caching impossible.
 
 ### Removed "useCounter"
 
