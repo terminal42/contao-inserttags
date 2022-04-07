@@ -21,14 +21,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class InsertTagHandler
 {
-    private RequestStack $requestStack;
-    private TokenStorageInterface $tokenStorage;
-
-    public function __construct(RequestStack $requestStack, TokenStorageInterface $tokenStorage)
-    {
-        $this->requestStack = $requestStack;
-        $this->tokenStorage = $tokenStorage;
-    }
+    public function __construct(private RequestStack $requestStack, private TokenStorageInterface $tokenStorage) {}
 
     /**
      * Check if a tag should be applied (rules, pages).

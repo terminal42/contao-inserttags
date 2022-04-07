@@ -20,18 +20,7 @@ use Terminal42\InsertTagsBundle\InsertTagHandler;
 
 class FrontendListener
 {
-    private Connection $connection;
-    private InsertTagHandler $handler;
-    private InsertTagParser $insertTagParser;
-    private SimpleTokenParser $simpleTokenParser;
-
-    public function __construct(Connection $connection, InsertTagHandler $handler, InsertTagParser $insertTagParser, SimpleTokenParser $simpleTokenParser)
-    {
-        $this->connection = $connection;
-        $this->handler = $handler;
-        $this->insertTagParser = $insertTagParser;
-        $this->simpleTokenParser = $simpleTokenParser;
-    }
+    public function __construct(private Connection $connection, private InsertTagHandler $handler, private InsertTagParser $insertTagParser, private SimpleTokenParser $simpleTokenParser) {}
 
     /**
      * @Hook("replaceInsertTags")

@@ -22,12 +22,7 @@ use Doctrine\DBAL\Connection;
 
 class DcaListener
 {
-    private Connection $connection;
-
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
-    }
+    public function __construct(private Connection $connection) {}
 
     /**
      * @Callback(table="tl_inserttags", target="config.onload")
