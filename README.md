@@ -30,4 +30,4 @@ This option has been removed completely, as insert tags are only present in the 
 
 ### Removed "cacheOutput"
 
-This option has been removed completely.
+This option has been removed completely as it is not required in version 2 anymore.
