@@ -14,7 +14,7 @@ please consider the JavaScript solution with an optional AJAX request(s).
 
 ### Removed "limitLanguages"
 
-This option has been removed, use the limiting insert tags to certain pages feature instead.
+This option has been removed completely, use the limiting insert tags to certain pages feature instead.
 
 ### Removed "useCondition"
 
@@ -26,8 +26,8 @@ This option has been removed completely.
 
 ### Removed "mode"
 
-The FE/BE mode is no longer supported, as insert tags are only present in the frontend.
+This option has been removed completely, as insert tags are only present in the frontend.
 
 ### Removed "cacheOutput"
 
-The cache output feature is no longer available.
+This option has been removed completely.
