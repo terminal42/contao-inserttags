@@ -15,7 +15,6 @@ $GLOBALS['TL_LANG']['tl_inserttags']['tag'] = ['Platzhalter', 'Bitte geben Sie d
 $GLOBALS['TL_LANG']['tl_inserttags']['replacement'] = ['Ersatz', 'Geben Sie den Inhalt ein, durch den der Platzhalter ersetzt werden soll.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['disableRTE'] = ['TinyMCE deaktivieren', 'Bitte klicken Sie hier wenn der TinyMCE Editor deaktiviert werden soll.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['description'] = ['Beschreibung', 'Sie können eine Beschreibung zu diesem Platzhalter eingeben, um Ihn von gleichen Platzhaltern unterscheiden zu können.'];
-$GLOBALS['TL_LANG']['tl_inserttags']['cacheOutput'] = ['Ausgabe zwischenspeichern', 'Klicken Sie hier, wenn dieser Platzhalter vor dem Contao Cache einer Seite angewendet werden soll.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['limitpages'] = ['Seiten limitiert', 'Klicken Sie hier, wenn Sie diesen Platzhalter auf gewisse Seiten limitieren wollen.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['pages'] = ['Seiten', 'Wählen Sie die Seiten, auf welchen dieser Platzhalter angewendet werden soll.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['includesubpages'] = ['Auf Unterseiten anwenden', 'Klicken Sie hier, wenn dieser Platzhalter auch auf Unterseiten der Auswahl angewendet werden soll.'];
@@ -36,4 +35,3 @@ $GLOBALS['TL_LANG']['tl_inserttags']['pasteinto'] = ['Am Anfang einfügen', 'Am 
 // Legends
 $GLOBALS['TL_LANG']['tl_inserttags']['tag_legend'] = 'Platzhalter & Ersatztext';
 $GLOBALS['TL_LANG']['tl_inserttags']['limit_legend'] = 'Limitierungen';
-$GLOBALS['TL_LANG']['tl_inserttags']['expert_legend'] = 'Experten-Einstellungen';

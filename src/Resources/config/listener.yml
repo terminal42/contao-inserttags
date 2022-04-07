@@ -13,5 +13,4 @@ services:
             - "@database_connection"
             - "@terminal42_insert_tags.handler"
             - "@contao.insert_tag.parser"
-            - "@monolog.logger.contao"
             - "@contao.string.simple_token_parser"

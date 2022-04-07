@@ -16,9 +16,6 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         'dataContainer' => 'Table',
         'label' => &$GLOBALS['TL_LANG']['MOD']['inserttags'][0],
         'enableVersioning' => true,
-        'onload_callback' => [
-            ['terminal42_insert_tags.dca', 'onLoadCallback'],
-        ],
         'sql' => [
             'keys' => [
                 'id' => 'primary',
@@ -34,13 +31,11 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
             'fields' => ['sorting'],
             'flag' => 1,
             'panelLayout' => 'filter;search,limit',
-            'paste_button_callback' => ['terminal42_insert_tags.dca', 'onPasteButtonCallback'],
             'icon' => 'bundles/terminal42inserttags/icon.gif',
         ],
         'label' => [
             'fields' => ['tag'],
             'format' => '%s',
-            'label_callback' => ['terminal42_insert_tags.dca', 'onLabelCallback'],
         ],
         'global_operations' => [
             'all' => [
@@ -79,7 +74,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
     // Palettes
     'palettes' => [
         '__selector__' => ['limitpages', 'protected'],
-        'default' => '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,guests,protected;{expert_legend:hide},cacheOutput',
+        'default' => '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,guests,protected',
     ],
 
     // Subpalettes
@@ -147,13 +142,6 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
             'sql' => ['type' => 'blob', 'notnull' => false],
         ],
         'includesubpages' => [
-            'inputType' => 'checkbox',
-            'exclude' => true,
-            'filter' => true,
-            'eval' => ['tl_class' => 'clr'],
-            'sql' => "char(1) COLLATE ascii_bin NOT NULL default ''",
-        ],
-        'cacheOutput' => [
             'inputType' => 'checkbox',
             'exclude' => true,
             'filter' => true,

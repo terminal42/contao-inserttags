@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Terminal42\InsertTagsBundle;
 
-use Contao\Config;
 use Contao\Database;
 use Contao\FrontendUser;
 use Contao\PageModel;
@@ -36,10 +35,6 @@ class InsertTagHandler
      */
     public function isTagValid(array $record): bool
     {
-        if (Config::get('disableInsertTags')) {
-            return false;
-        }
-
         // Show for guests only, but member logged in
         if ($record['guests'] && ($user = $this->getFrontendUser()) !== null) {
             return false;
@@ -71,31 +66,33 @@ class InsertTagHandler
 
         // Limit pages
         if ($record['limitpages']) {
-            $pages = StringUtil::deserialize($record['pages']);
+            $pageIds = StringUtil::deserialize($record['pages']);
 
-            if (!\is_array($pages)) {
+            if (!\is_array($pageIds)) {
                 return false;
             }
 
-            $allPages = $pages;
-
-            if ($record['includesubpages']) {
-                $subpages = Database::getInstance()->getChildRecords($pages, 'tl_page');
-                $allPages = array_merge($allPages, $subpages);
-            }
-
-            $allPages = array_unique(array_map('intval', $allPages));
-
+            // The page model is not available
             if (($request = $this->requestStack->getCurrentRequest()) === null || !$request->attributes->has('pageModel')) {
                 return false;
             }
 
-            /** @var PageModel $pageModel */
-            $pageModel = $request->attributes->get('pageModel');
-            $pageModel->loadDetails();
+            $pageIds = array_map('\intval', $pageIds);
 
-            if (!\in_array((int) $pageModel->id, $allPages, true)) {
-                return false;
+            /** @var PageModel $currentPage */
+            $currentPage = $request->attributes->get('pageModel');
+            $currentPageId = (int) $currentPage->id;
+
+            if (!in_array($currentPageId, $pageIds, true)) {
+                if (!$record['includesubpages']) {
+                    return false;
+                }
+
+                $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
+
+                if (count(array_intersect($pageIds, $parentIds)) === 0) {
+                    return false;
+                }
             }
         }
 
@@ -115,6 +112,6 @@ class InsertTagHandler
 
         $user = $token->getUser();
 
-        return is_a($user, FrontendUser::class) ? $user : null;
+        return ($user instanceof FrontendUser::class) ? $user : null;
     }
 }

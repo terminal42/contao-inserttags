@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Terminal42\InsertTagsBundle\EventListener;
 
 use Contao\Backend;
+use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
 use Contao\Image;
 use Contao\Input;
@@ -29,7 +30,7 @@ class DcaListener
     }
 
     /**
-     * On load callback.
+     * @Callback(table="tl_inserttags", target="config.onload")
      */
     public function onLoadCallback(DataContainer $dc): void
     {
@@ -44,7 +45,7 @@ class DcaListener
     }
 
     /**
-     * On label callback.
+     * @Callback(table="tl_inserttags", target="list.label.label")
      */
     public function onLabelCallback(array $row): string
     {
@@ -58,7 +59,7 @@ class DcaListener
     }
 
     /**
-     * On paste button callback.
+     * @Callback(table="tl_inserttags", target="list.sorting.paste_button")
      */
     public function onPasteButtonCallback(DataContainer $dc, array $row, string $table, bool $cr, array $clipboard): string
     {
