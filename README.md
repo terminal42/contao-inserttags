@@ -22,7 +22,7 @@ This option has been removed completely.
 
 ### Removed "useCounter"
 
-This option has been removed completely.
+This option has been removed completely as this too, would make HTTP caching impossible.
 
 ### Removed "mode"
 
