@@ -5,5 +5,5 @@ services:
     terminal42_insert_tags.migration.guests:
         class: Terminal42\InsertTagsBundle\Migration\GuestsMigration
         arguments:
-            - "@request_stack"
-            - "@security.token_storage"
+            - "@database_connection"
+            - "@contao.framework"
