@@ -28,64 +28,82 @@ class InsertTagHandler
      */
     public function isTagValid(array $record): bool
     {
-        // Show for guests only, but member logged in
-        if ($record['guests'] && ($user = $this->getFrontendUser()) !== null) {
+        if (!$this->validateProtection($record) || !$this->validateLimitPages($record)) {
             return false;
         }
 
-        // Show to members only
-        if ($record['protected']) {
-            $user = $user ?? $this->getFrontendUser();
+        return true;
+    }
 
-            // no member logged in
-            if (null === $user) {
-                return false;
-            }
-
-            $tagGroups = StringUtil::deserialize($record['groups']);
-            $userGroups = StringUtil::deserialize($user->groups);
-
-            // No groups available or member not in group
-            if (
-                !\is_array($tagGroups)
-                || 0 === \count($tagGroups)
-                || !\is_array($userGroups)
-                || 0 === \count($userGroups)
-                || 0 === \count(array_intersect($tagGroups, $userGroups))
-            ) {
-                return false;
-            }
+    /**
+     * Validate the protection.
+     */
+    private function validateProtection(array $record): bool
+    {
+        if (!$record['protected']) {
+            return true;
         }
 
-        // Limit pages
-        if ($record['limitpages']) {
-            $pageIds = StringUtil::deserialize($record['pages']);
+        $groups = StringUtil::deserialize($record['groups']);
 
-            if (!\is_array($pageIds)) {
+        // There are no groups
+        if (!\is_array($groups) || 0 === \count($groups)) {
+            return false;
+        }
+
+        $groups = array_map('\intval', $groups);
+        $user = $this->getFrontendUser();
+
+        // Allow anonymous users if the "guest" group is allowed
+        if (null === $user) {
+            return in_array(-1, $groups, true);
+        }
+
+        $userGroups = StringUtil::deserialize($user->groups);
+
+        // Member is not in the group
+        if (!\is_array($userGroups) || 0 === \count($userGroups) || 0 === \count(array_intersect($groups, $userGroups))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate the limit pages.
+     */
+    private function validateLimitPages(array $record): bool
+    {
+        if (!$record['limitpages']) {
+            return true;
+        }
+
+        $pageIds = StringUtil::deserialize($record['pages']);
+
+        if (!\is_array($pageIds)) {
+            return false;
+        }
+
+        // The page model is not available
+        if (($request = $this->requestStack->getCurrentRequest()) === null || !$request->attributes->has('pageModel')) {
+            return false;
+        }
+
+        $pageIds = array_map('\intval', $pageIds);
+
+        /** @var PageModel $currentPage */
+        $currentPage = $request->attributes->get('pageModel');
+        $currentPageId = (int) $currentPage->id;
+
+        if (!in_array($currentPageId, $pageIds, true)) {
+            if (!$record['includesubpages']) {
                 return false;
             }
 
-            // The page model is not available
-            if (($request = $this->requestStack->getCurrentRequest()) === null || !$request->attributes->has('pageModel')) {
+            $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
+
+            if (count(array_intersect($pageIds, $parentIds)) === 0) {
                 return false;
-            }
-
-            $pageIds = array_map('\intval', $pageIds);
-
-            /** @var PageModel $currentPage */
-            $currentPage = $request->attributes->get('pageModel');
-            $currentPageId = (int) $currentPage->id;
-
-            if (!in_array($currentPageId, $pageIds, true)) {
-                if (!$record['includesubpages']) {
-                    return false;
-                }
-
-                $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
-
-                if (count(array_intersect($pageIds, $parentIds)) === 0) {
-                    return false;
-                }
             }
         }
 

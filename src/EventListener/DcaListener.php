@@ -67,4 +67,19 @@ class DcaListener
 
         return ('cut' === $clipboard['mode'] && $clipboard['id'] === $row['id']) || $cr ? Image::getHtml('pasteafter_.gif').' ' : '<a href="'.Backend::addToUrl('act='.$clipboard['mode'].'&amp;mode=1&amp;pid='.$row['id'].'&amp;id='.$clipboard['id']).'" title="'.StringUtil::specialchars(sprintf($GLOBALS['TL_LANG'][$dc->table]['pasteafter'][1], $row['id'])).'" onclick="Backend.getScrollOffset();">'.$imagePasteAfter.'</a> ';
     }
+
+    /**
+     * @Callback(table="tl_inserttags", target="fields.groups.options")
+     */
+    public function onGroupsOptionsCallback(): array
+    {
+        $options = [-1 => &$GLOBALS['TL_LANG']['MSC']['guests']];
+        $records = $this->connection->fetchAllAssociative('SELECT id, name FROM tl_member_group ORDER BY name');
+
+        foreach ($records as $record) {
+            $options[$record['id']] = $record['name'];
+        }
+
+        return $options;
+    }
 }

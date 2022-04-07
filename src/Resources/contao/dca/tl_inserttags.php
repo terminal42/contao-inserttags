@@ -158,7 +158,6 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         'groups' => [
             'exclude' => true,
             'inputType' => 'checkbox',
-            'foreignKey' => 'tl_member_group.name',
             'eval' => ['multiple' => true, 'tl_class' => 'clr'],
             'sql' => ['type' => 'blob', 'notnull' => false],
         ],
