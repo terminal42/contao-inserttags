@@ -26,7 +26,7 @@ This option has been removed completely as this too, would make HTTP caching imp
 
 ### Removed "mode"
 
-This option has been removed completely, as insert tags are only present in the frontend.
+This option has been removed completely, as insert tags are only present in the front end.
 
 ### Removed "cacheOutput"
 
