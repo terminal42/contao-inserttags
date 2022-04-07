@@ -1,7 +1,7 @@
 # terminal42/contao-inserttags
 
 Adds a back end module to define your custom insert tags. You can limit an insert tag to certain pages,
-show it to guests, or only for the logged in frontend users.
+show it to guests only, or restrict it to certain logged in front end member groups.
 
 ## Upgrade from version 1.x
 
