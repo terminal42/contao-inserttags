@@ -74,7 +74,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
     // Palettes
     'palettes' => [
         '__selector__' => ['limitpages', 'protected'],
-        'default' => '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,guests,protected',
+        'default' => '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,protected',
     ],
 
     // Subpalettes
@@ -160,13 +160,6 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
             'inputType' => 'checkbox',
             'eval' => ['multiple' => true, 'tl_class' => 'clr'],
             'sql' => ['type' => 'blob', 'notnull' => false],
-        ],
-        'guests' => [
-            'exclude' => true,
-            'filter' => true,
-            'inputType' => 'checkbox',
-            'eval' => ['tl_class' => 'clr'],
-            'sql' => "char(1) COLLATE ascii_bin NOT NULL default ''",
         ],
     ],
 ];

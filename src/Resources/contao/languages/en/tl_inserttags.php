@@ -20,7 +20,6 @@ $GLOBALS['TL_LANG']['tl_inserttags']['pages'] = ['Pages', 'Please choose the pag
 $GLOBALS['TL_LANG']['tl_inserttags']['includesubpages'] = ['Include subpages', 'Please check here if you want this insert tag to be applied on subpages of your select, too.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['protected'] = ['Protect insert tag', 'Show the inserttag to certain member groups only.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['groups'] = ['Allowed member groups', 'These groups will be able to see the insert tag.'];
-$GLOBALS['TL_LANG']['tl_inserttags']['guests'] = ['Show to guests only', 'Hide the insert tag if a member is logged in.'];
 
 // Buttons
 $GLOBALS['TL_LANG']['tl_inserttags']['new'] = ['Create Tag', 'Create a new Insert tag'];

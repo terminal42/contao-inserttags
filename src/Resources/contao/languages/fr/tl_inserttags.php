@@ -20,7 +20,6 @@ $GLOBALS['TL_LANG']['tl_inserttags']['pages'] = ['Pages', 'Sélectionnez les pag
 $GLOBALS['TL_LANG']['tl_inserttags']['includesubpages'] = ['Inclure des sous-pages', 'Cochez cette case si vous souhaitez que le tag soit appliqué aux sous-pages également.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['protected'] = ['Protéger le tag', 'Cochez pour ne permettre qu\'à certains groupes de membre.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['groups'] = ['Groupes de membres autorisés', 'Les groupes cochés seront autorisés à voir le tag.'];
-$GLOBALS['TL_LANG']['tl_inserttags']['guests'] = ['Ne montrer qu\'aux visiteurs', 'Cochez la case pour faire disparaître le tag à la vue des personnes connectées.'];
 
 // Buttons
 $GLOBALS['TL_LANG']['tl_inserttags']['new'] = ['Créer un tag', 'Créer un nouveau tag'];

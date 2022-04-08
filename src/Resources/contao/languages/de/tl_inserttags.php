@@ -20,7 +20,6 @@ $GLOBALS['TL_LANG']['tl_inserttags']['pages'] = ['Seiten', 'Wählen Sie die Seit
 $GLOBALS['TL_LANG']['tl_inserttags']['includesubpages'] = ['Auf Unterseiten anwenden', 'Klicken Sie hier, wenn dieser Platzhalter auch auf Unterseiten der Auswahl angewendet werden soll.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['protected'] = ['Platzhalter schützen', 'Den Platzhalter nur bestimmten Gruppen anzeigen.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['groups'] = ['Erlaubte Mitgliedergruppen', 'Diese Gruppen können den Platzhalter sehen.'];
-$GLOBALS['TL_LANG']['tl_inserttags']['guests'] = ['Nur Gästen anzeigen', 'Den Platzhalter verstecken sobald ein Mitglied angemeldet ist.'];
 
 // Buttons
 $GLOBALS['TL_LANG']['tl_inserttags']['new'] = ['Neuen Platzhalter', 'Einen neuen Platzhalter erstellen'];
