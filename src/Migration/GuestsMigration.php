@@ -27,7 +27,7 @@ class GuestsMigration extends AbstractMigration
             return false;
         }
 
-        $columns = $schemaManager->listTableColumns('guests');
+        $columns = $schemaManager->listTableColumns('tl_inserttags');
 
         return isset($columns['guests']);
     }
