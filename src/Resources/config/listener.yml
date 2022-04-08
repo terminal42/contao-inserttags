@@ -5,6 +5,8 @@ services:
     terminal42_insert_tags.dca:
         class: Terminal42\InsertTagsBundle\EventListener\DcaListener
         public: true
+        arguments:
+            - "@database_connection"
 
     terminal42_insert_tags.frontend:
         class: Terminal42\InsertTagsBundle\EventListener\FrontendListener
