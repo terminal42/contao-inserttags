@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Terminal42\InsertTagsBundle;
 
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
 class Terminal42InsertTagsBundle extends Bundle
 {
 }
