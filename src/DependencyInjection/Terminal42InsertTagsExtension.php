@@ -14,15 +14,15 @@ namespace Terminal42\InsertTagsBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class Terminal42InsertTagsExtension extends ConfigurableExtension
+class Terminal42InsertTagsExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
-    protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
+    public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('listener.yml');
