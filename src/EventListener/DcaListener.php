@@ -31,7 +31,7 @@ class DcaListener
     {
         // Disable rich text editor if checkbox is set
         if ('edit' === Input::get('act')) {
-            $disableRTE = $this->connection->fetchOne("SELECT disableRTE {$dc->table} WHERE id=?", [$dc->id]);
+            $disableRTE = $this->connection->fetchOne("SELECT disableRTE FROM {$dc->table} WHERE id=?", [$dc->id]);
 
             if ($disableRTE) {
                 unset($GLOBALS['TL_DCA'][$dc->table]['fields']['replacement']['eval']['rte']);
