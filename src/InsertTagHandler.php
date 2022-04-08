@@ -123,6 +123,6 @@ class InsertTagHandler
 
         $user = $token->getUser();
 
-        return ($user instanceof FrontendUser::class) ? $user : null;
+        return ($user instanceof FrontendUser) ? $user : null;
     }
 }
