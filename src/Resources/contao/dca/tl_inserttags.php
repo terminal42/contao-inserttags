@@ -111,7 +111,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
             'inputType' => 'textarea',
             'exclude' => true,
             'search' => true,
-            'eval' => ['rte' => 'tinyMCE', 'tl_class' => 'clr'],
+            'eval' => ['rte' => 'tinyMCE', 'allowHtml' => true, 'tl_class' => 'clr'],
             'sql' => ['type' => 'text', 'notnull' => false],
         ],
         'disableRTE' => [
