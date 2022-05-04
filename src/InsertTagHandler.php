@@ -12,21 +12,63 @@ declare(strict_types=1);
 
 namespace Terminal42\InsertTagsBundle;
 
+use Contao\CoreBundle\InsertTag\InsertTagParser;
+use Contao\CoreBundle\String\SimpleTokenParser;
 use Contao\Database;
 use Contao\FrontendUser;
 use Contao\PageModel;
 use Contao\StringUtil;
+use Doctrine\DBAL\Connection;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class InsertTagHandler
 {
-    public function __construct(private RequestStack $requestStack, private TokenStorageInterface $tokenStorage) {}
+    public function __construct(
+        private Connection $connection,
+        private InsertTagParser $insertTagParser,
+        private RequestStack $requestStack,
+        private SimpleTokenParser $simpleTokenParser,
+        private TokenStorageInterface $tokenStorage,
+    ) {}
+
+    /**
+     * Parse the insert tag.
+     */
+    public function parseInsertTag(string $tag): ?string
+    {
+        $chunks = explode('::', $tag);
+
+        if ('custom' !== $chunks[0]) {
+            return null;
+        }
+
+        $record = $this->connection->fetchAssociative('SELECT * FROM tl_inserttags WHERE tag=?', [$chunks[1]]);
+
+        if ($record === false) {
+            return null;
+        }
+
+        // Return the "replacement not" if tag is found but does not validate
+        if (!$this->isTagValid($record)) {
+            return $record['replacementNot'];
+        }
+
+        $tokens = [
+            'page' => $this->getPageModel(),
+            'request' => $this->requestStack->getCurrentRequest(),
+            'tag' => (object) array_slice($chunks, 2),
+            'user' => $this->getFrontendUser(),
+        ];
+
+        return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($record['replacement']), $tokens);
+    }
 
     /**
      * Check if a tag should be applied (rules, pages).
      */
-    public function isTagValid(array $record): bool
+    private function isTagValid(array $record): bool
     {
         if (!$this->validateProtection($record) || !$this->validateLimitPages($record)) {
             return false;
@@ -85,14 +127,12 @@ class InsertTagHandler
         }
 
         // The page model is not available
-        if (($request = $this->requestStack->getCurrentRequest()) === null || !$request->attributes->has('pageModel')) {
+        if (($request = $this->requestStack->getCurrentRequest()) === null) {
             return false;
         }
 
         $pageIds = array_map('\intval', $pageIds);
-
-        /** @var PageModel $currentPage */
-        $currentPage = $request->attributes->get('pageModel');
+        $currentPage = $this->getPageModel($request);
         $currentPageId = (int) $currentPage->id;
 
         if (!in_array($currentPageId, $pageIds, true)) {
@@ -108,6 +148,28 @@ class InsertTagHandler
         }
 
         return true;
+    }
+
+    /**
+     * Get page model from the request.
+     */
+    private function getPageModel(Request $request = null): ?PageModel
+    {
+        if ($request === null) {
+            $request = $this->requestStack->getCurrentRequest();
+        }
+
+        if (!$request->attributes->has('pageModel')) {
+            return null;
+        }
+
+        $page = $request->attributes->get('pageModel');
+
+        if (!($page instanceof PageModel)) {
+            return null;
+        }
+
+        return $page;
     }
 
     /**

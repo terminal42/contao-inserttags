@@ -12,7 +12,5 @@ services:
         class: Terminal42\InsertTagsBundle\EventListener\FrontendListener
         public: true
         arguments:
-            - "@database_connection"
             - "@terminal42_insert_tags.handler"
-            - "@contao.insert_tag.parser"
-            - "@contao.string.simple_token_parser"
+

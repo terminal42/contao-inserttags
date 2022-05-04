@@ -12,37 +12,22 @@ declare(strict_types=1);
 
 namespace Terminal42\InsertTagsBundle\EventListener;
 
-use Contao\CoreBundle\InsertTag\InsertTagParser;
 use Contao\CoreBundle\ServiceAnnotation\Hook;
-use Contao\CoreBundle\String\SimpleTokenParser;
-use Doctrine\DBAL\Connection;
 use Terminal42\InsertTagsBundle\InsertTagHandler;
 
 class FrontendListener
 {
-    public function __construct(private Connection $connection, private InsertTagHandler $handler, private InsertTagParser $insertTagParser, private SimpleTokenParser $simpleTokenParser) {}
+    public function __construct(private InsertTagHandler $handler) {}
 
     /**
      * @Hook("replaceInsertTags")
      */
     public function onReplaceInsertTags(string $tag)
     {
-        $chunks = explode('::', $tag);
-
-        if ('custom' !== $chunks[0]) {
-            return false;
+        if (($parsed = $this->handler->parseInsertTag($tag)) !== null) {
+            return $parsed;
         }
 
-        $records = $this->connection->fetchAllAssociative('SELECT * FROM tl_inserttags WHERE tag=? ORDER BY sorting', [$chunks[1]]);
-
-        foreach ($records as $record) {
-            if (!$this->handler->isTagValid($record)) {
-                continue;
-            }
-
-            return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($record['replacement']), $chunks);
-        }
-
-        return '';
+        return false;
     }
 }

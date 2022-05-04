@@ -74,7 +74,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
     // Palettes
     'palettes' => [
         '__selector__' => ['limitpages', 'protected'],
-        'default' => '{tag_legend},tag,description,replacement,disableRTE;{limit_legend},limitpages,protected',
+        'default' => '{tag_legend},tag,description,replacement,replacementNot,disableRTE;{limit_legend},limitpages,protected',
     ],
 
     // Subpalettes
@@ -104,14 +104,23 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
             'inputType' => 'text',
             'exclude' => true,
             'filter' => true,
-            'eval' => ['mandatory' => true, 'maxlength' => 255, 'nospace' => true, 'tl_class' => 'w50'],
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'nospace' => true, 'unique' => true, 'tl_class' => 'w50'],
             'sql' => ['type' => 'string', 'length' => 255, 'default' => ''],
         ],
         'replacement' => [
             'inputType' => 'textarea',
             'exclude' => true,
             'search' => true,
-            'eval' => ['rte' => 'tinyMCE', 'allowHtml' => true, 'tl_class' => 'clr'],
+            'eval' => ['rte' => 'tinyMCE', 'allowHtml' => true, 'helpwizard' => true, 'tl_class' => 'clr'],
+            'explanation' => 'customInsertTags',
+            'sql' => ['type' => 'text', 'notnull' => false],
+        ],
+        'replacementNot' => [
+            'inputType' => 'textarea',
+            'exclude' => true,
+            'search' => true,
+            'eval' => ['rte' => 'tinyMCE', 'allowHtml' => true, 'helpwizard' => true, 'tl_class' => 'clr'],
+            'explanation' => 'customInsertTags',
             'sql' => ['type' => 'text', 'notnull' => false],
         ],
         'disableRTE' => [

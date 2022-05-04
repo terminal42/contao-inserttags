@@ -35,6 +35,7 @@ class DcaListener
 
             if ($disableRTE) {
                 unset($GLOBALS['TL_DCA'][$dc->table]['fields']['replacement']['eval']['rte']);
+                unset($GLOBALS['TL_DCA'][$dc->table]['fields']['replacementNot']['eval']['rte']);
             }
         }
     }

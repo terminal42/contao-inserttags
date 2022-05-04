@@ -3,6 +3,47 @@
 Adds a back end module to define your custom insert tags. You can limit an insert tag to certain pages,
 show it to guests only, or restrict it to certain logged in front end member groups.
 
+The extension supports the simple tokens parsing and the [Expression Language](https://symfony.com/doc/current/components/expression_language.html#how-can-the-expression-engine-help-me) component,
+which allows to create powerful and dynamic replacements.
+
+```
+{if 123 in page.trail}
+I am a subpage of page ID 123!
+{endif}
+
+{if 456 in user.groups}
+I belong to member group ID 456!
+{endif}
+
+{if request.query.has('foobar')}
+My "foobar" parameter is: ##request.query.get('foobar')##
+{else}
+I have no "foobar" parameter :(
+{endif}
+```
+
+
+## Supported simple tokens
+
+Below you can find a list of supported simple tokens:
+
+### Page properties: `page.*`
+
+Example: `page.id` or `page.trail`.
+
+### Current request properties: `request.*` 
+
+Example: `request.query.get('foobar')`.
+
+### Tag chunks: `tag.*`
+
+Example: the `{{custom::my-tag::foo::bar}}` insert tag produces `tag.0` and `tag.1` as `foo` and `bar` respectively.
+
+### Current user properties: `user.*`
+
+Example: `user.id` or `user.firstname` or `user.groups`.
+
+
 ## Upgrade from version 1.x
 
 Some options present in version 1.x have been removed. All changes are described below.  
