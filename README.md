@@ -68,15 +68,18 @@ You current page language is: ##page_language##
 
 ## Security concerns
 
-Q: Why there are two types of token?
+**Q: Why there are two types of token?**
+
 A: The evaluation tokens refer to the real objects. However, the objects should NEVER be used as replacement tokens
 due to security reasons. For that, we introduced the replacement tokens which contain the plain string data.
 
-Q: Why there is no support for the `request`?
+**Q: Why there is no support for the `request`?**
+
 A: The request may contain malicious data that is provided e.g., as a query parameter, and it could be dangerous 
 to allow users to display it in the frontend.
 
-Q: Why there is no support for tag parameters like `{{custom::my_tag::my_param_1::my_param_2}}`?
+**Q: Why there is no support for tag parameters like `{{custom::my_tag::my_param_1::my_param_2}}`?**
+
 A: The tag parameters cannot be validated which is potentially dangerous.
 
 
