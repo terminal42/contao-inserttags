@@ -14,12 +14,10 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
     // Config
     'config' => [
         'dataContainer' => 'Table',
-        'label' => &$GLOBALS['TL_LANG']['MOD']['inserttags'][0],
         'enableVersioning' => true,
         'sql' => [
             'keys' => [
                 'id' => 'primary',
-                'pid' => 'index',
             ],
         ],
     ],
@@ -27,11 +25,10 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
     // List
     'list' => [
         'sorting' => [
-            'mode' => 5,
-            'fields' => ['sorting'],
+            'mode' => 1,
+            'fields' => ['name'],
             'flag' => 1,
             'panelLayout' => 'filter;search,limit',
-            'icon' => 'bundles/terminal42inserttags/icon.gif',
         ],
         'label' => [
             'fields' => ['tag'],
@@ -50,14 +47,8 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
                 'icon' => 'edit.svg',
             ],
             'copy' => [
-                'href' => 'act=paste&amp;mode=copy',
+                'href' => 'act=copy',
                 'icon' => 'copy.svg',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
-            ],
-            'cut' => [
-                'href' => 'act=paste&amp;mode=cut',
-                'icon' => 'cut.svg',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
             ],
             'delete' => [
                 'href' => 'act=delete',
@@ -88,13 +79,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         'id' => [
             'sql' => ['type' => 'integer', 'unsigned' => true, 'autoincrement' => true],
         ],
-        'pid' => [
-            'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
-        ],
         'tstamp' => [
-            'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
-        ],
-        'sorting' => [
             'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
         ],
         'type' => [
@@ -104,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
             'inputType' => 'text',
             'exclude' => true,
             'filter' => true,
-            'eval' => ['mandatory' => true, 'maxlength' => 255, 'nospace' => true, 'unique' => true, 'tl_class' => 'w50'],
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'nospace' => true, 'unique' => true, 'doNotCopy' => true, 'tl_class' => 'w50'],
             'sql' => ['type' => 'string', 'length' => 255, 'default' => ''],
         ],
         'replacement' => [

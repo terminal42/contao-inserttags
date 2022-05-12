@@ -12,12 +12,9 @@ declare(strict_types=1);
 
 namespace Terminal42\InsertTagsBundle\EventListener;
 
-use Contao\Backend;
 use Contao\CoreBundle\ServiceAnnotation\Callback;
 use Contao\DataContainer;
-use Contao\Image;
 use Contao\Input;
-use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
 
 class DcaListener
@@ -51,22 +48,7 @@ class DcaListener
             $label .= sprintf('<span class="tl_gray">(%s)</span>', $row['description']);
         }
 
-        return '<img width="18" height="18" style="margin-left:0" alt="" src="bundles/terminal42inserttags/page.gif"> '.$label;
-    }
-
-    /**
-     * @Callback(table="tl_inserttags", target="list.sorting.paste_button")
-     */
-    public function onPasteButtonCallback(DataContainer $dc, array $row, string $table, bool $cr, array $clipboard): string
-    {
-        $imagePasteAfter = Image::getHtml('pasteafter.gif', sprintf($GLOBALS['TL_LANG'][$dc->table]['pasteafter'][1], $row['id']));
-        $imagePasteInto = Image::getHtml('pasteinto.gif', sprintf($GLOBALS['TL_LANG'][$dc->table]['pasteinto'][1], $row['id']));
-
-        if (0 === $row['id']) {
-            return $cr ? Image::getHtml('pasteinto_.gif').' ' : '<a href="'.Backend::addToUrl('act='.$clipboard['mode'].'&amp;mode=2&amp;pid='.$row['id'].'&amp;id='.$clipboard['id']).'" title="'.StringUtil::specialchars(sprintf($GLOBALS['TL_LANG'][$dc->table]['pasteinto'][1], $row['id'])).'" onclick="Backend.getScrollOffset();">'.$imagePasteInto.'</a> ';
-        }
-
-        return ('cut' === $clipboard['mode'] && $clipboard['id'] === $row['id']) || $cr ? Image::getHtml('pasteafter_.gif').' ' : '<a href="'.Backend::addToUrl('act='.$clipboard['mode'].'&amp;mode=1&amp;pid='.$row['id'].'&amp;id='.$clipboard['id']).'" title="'.StringUtil::specialchars(sprintf($GLOBALS['TL_LANG'][$dc->table]['pasteafter'][1], $row['id'])).'" onclick="Backend.getScrollOffset();">'.$imagePasteAfter.'</a> ';
+        return $label;
     }
 
     /**
