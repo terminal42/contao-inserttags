@@ -45,7 +45,7 @@ class InsertTagHandler
             return null;
         }
 
-        $record = $this->connection->fetchAssociative('SELECT * FROM tl_inserttags WHERE tag=?', [$chunks[1]]);
+        $record = $this->getTagRecord($tag);
 
         if ($record === false) {
             return null;
@@ -73,6 +73,20 @@ class InsertTagHandler
         }
 
         return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($record['replacement']), $tokens);
+    }
+
+    /**
+     * Get the tag record.
+     */
+    private function getTagRecord(string $tag): ?array
+    {
+        static $cache = [];
+
+        if (!array_key_exists($tag, $cache)) {
+            $cache[$tag] = $this->connection->fetchAssociative('SELECT * FROM tl_inserttags WHERE tag=?', [$tag]);
+        }
+
+        return $cache[$tag] ?: null;
     }
 
     /**
