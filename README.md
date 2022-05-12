@@ -3,7 +3,7 @@
 Adds a back end module to define your custom insert tags. You can limit an insert tag to certain pages,
 show it to guests only, or restrict it to certain logged in front end member groups.
 
-The extension supports the simple tokens parsing and the [Expression Language](https://symfony.com/doc/current/components/expression_language.html#how-can-the-expression-engine-help-me) component,
+The extension supports [Contao's Simple Token] syntax(https://docs.contao.org/dev/reference/services/#simpletokenparser),
 which allows to create powerful and dynamic replacements.
 
 ```
