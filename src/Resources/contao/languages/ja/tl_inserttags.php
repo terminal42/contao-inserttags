@@ -25,11 +25,8 @@ $GLOBALS['TL_LANG']['tl_inserttags']['groups'] = ['許可するメンバーグ�
 $GLOBALS['TL_LANG']['tl_inserttags']['new'] = ['タグを作成', '新しい挿入タグを作成'];
 $GLOBALS['TL_LANG']['tl_inserttags']['edit'] = ['タグを編集', 'ID %sの挿入タグを編集'];
 $GLOBALS['TL_LANG']['tl_inserttags']['copy'] = ['タグを複製', 'ID %sの挿入タグを複製'];
-$GLOBALS['TL_LANG']['tl_inserttags']['cut'] = ['タグを移動', 'ID %sの挿入タグを移動'];
 $GLOBALS['TL_LANG']['tl_inserttags']['delete'] = ['タグを削除', 'ID %sの挿入タグを削除'];
 $GLOBALS['TL_LANG']['tl_inserttags']['show'] = ['タグの詳細', 'ID %sの挿入タグの詳細を表示'];
-$GLOBALS['TL_LANG']['tl_inserttags']['pasteafter'] = ['後に貼付け', 'ID %sの挿入タグの後に貼付け'];
-$GLOBALS['TL_LANG']['tl_inserttags']['pasteinto'] = ['中に貼り付け', '戦闘に貼り付け'];
 
 // Legends
 $GLOBALS['TL_LANG']['tl_inserttags']['tag_legend'] = 'タグと置き換え';

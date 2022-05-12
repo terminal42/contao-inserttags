@@ -26,11 +26,8 @@ $GLOBALS['TL_LANG']['tl_inserttags']['groups'] = ['Allowed member groups', 'Thes
 $GLOBALS['TL_LANG']['tl_inserttags']['new'] = ['Create Tag', 'Create a new Insert tag'];
 $GLOBALS['TL_LANG']['tl_inserttags']['edit'] = ['Edit Tag', 'Edit Insert tag ID %s'];
 $GLOBALS['TL_LANG']['tl_inserttags']['copy'] = ['Duplicate Tag', 'Duplicate Insert tag ID %s'];
-$GLOBALS['TL_LANG']['tl_inserttags']['cut'] = ['Move Tag', 'Move Tag ID %s'];
 $GLOBALS['TL_LANG']['tl_inserttags']['delete'] = ['Delete Tag', 'Delete Insert tag ID %s'];
 $GLOBALS['TL_LANG']['tl_inserttags']['show'] = ['Tag details', 'Show details of Insert tag ID %s'];
-$GLOBALS['TL_LANG']['tl_inserttags']['pasteafter'] = ['Paste after', 'Paste after tag ID %s'];
-$GLOBALS['TL_LANG']['tl_inserttags']['pasteinto'] = ['Paste into', 'Paste on top'];
 
 // Legends
 $GLOBALS['TL_LANG']['tl_inserttags']['tag_legend'] = 'Tag & Replacement';

@@ -25,11 +25,8 @@ $GLOBALS['TL_LANG']['tl_inserttags']['groups'] = ['Groupes de membres autorisés
 $GLOBALS['TL_LANG']['tl_inserttags']['new'] = ['Créer un tag', 'Créer un nouveau tag'];
 $GLOBALS['TL_LANG']['tl_inserttags']['edit'] = ['Editer le tag', 'Editer le tag ID %s'];
 $GLOBALS['TL_LANG']['tl_inserttags']['copy'] = ['Dupliquer le tag', 'Dupliquer le tag ID %s'];
-$GLOBALS['TL_LANG']['tl_inserttags']['cut'] = ['Déplacer le tag', 'Déplacer le tag ID %s'];
 $GLOBALS['TL_LANG']['tl_inserttags']['delete'] = ['Supprimer le tag', 'Supprimer le tag ID %s'];
 $GLOBALS['TL_LANG']['tl_inserttags']['show'] = ['Détails du tag', 'Détails du tag ID %s'];
-$GLOBALS['TL_LANG']['tl_inserttags']['pasteafter'] = ['Copier après', 'Copier après le tag ID %s'];
-$GLOBALS['TL_LANG']['tl_inserttags']['pasteinto'] = ['Copier au début', 'Copier au début'];
 
 // Legends
 $GLOBALS['TL_LANG']['tl_inserttags']['tag_legend'] = 'Tag & Affichage';

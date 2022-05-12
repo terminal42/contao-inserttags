@@ -25,11 +25,8 @@ $GLOBALS['TL_LANG']['tl_inserttags']['groups'] = ['Erlaubte Mitgliedergruppen', 
 $GLOBALS['TL_LANG']['tl_inserttags']['new'] = ['Neuen Platzhalter', 'Einen neuen Platzhalter erstellen'];
 $GLOBALS['TL_LANG']['tl_inserttags']['edit'] = ['Platzhalter bearbeiten', 'Platzhalter ID %s bearbeiten'];
 $GLOBALS['TL_LANG']['tl_inserttags']['copy'] = ['Platzhalter duplizieren', 'Platzhalter ID %s duplizieren'];
-$GLOBALS['TL_LANG']['tl_inserttags']['cut'] = ['Platzhalter verschieben', 'Platzhalter ID %s verschieben'];
 $GLOBALS['TL_LANG']['tl_inserttags']['delete'] = ['Platzhalter löschen', 'Platzhalter ID %s löschen'];
 $GLOBALS['TL_LANG']['tl_inserttags']['show'] = ['Platzhalterdetails', 'Die Details des Platzhalters ID %s anzeigen'];
-$GLOBALS['TL_LANG']['tl_inserttags']['pasteafter'] = ['Danach einfügen', 'Nach dem Platzhalter ID %s einfügen'];
-$GLOBALS['TL_LANG']['tl_inserttags']['pasteinto'] = ['Am Anfang einfügen', 'Am Anfang einfügen'];
 
 // Legends
 $GLOBALS['TL_LANG']['tl_inserttags']['tag_legend'] = 'Platzhalter & Ersatztext';
