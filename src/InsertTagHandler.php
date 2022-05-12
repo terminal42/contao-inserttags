@@ -19,6 +19,7 @@ use Contao\FrontendUser;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
+use Haste\Util\Format;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -50,17 +51,26 @@ class InsertTagHandler
             return null;
         }
 
-        // Return the "replacement not" if tag is found but does not validate
-        if (!$this->isTagValid($record)) {
-            return $record['replacementNot'];
+        // Generate the evaluation tokens
+        $tokens = [
+            'member' => $this->getFrontendUser(),
+            'page' => $this->getPageModel(),
+        ];
+
+        // Generate the member replacement tokens
+        foreach ($tokens['member']->getData() as $k => $v) {
+            $tokens['member_' . $k] = Format::dcaValue('tl_member', $k, $v);
         }
 
-        $tokens = [
-            'page' => $this->getPageModel(),
-            'request' => $this->requestStack->getCurrentRequest(),
-            'tag' => (object) array_slice($chunks, 2),
-            'user' => $this->getFrontendUser(),
-        ];
+        // Generate the page replacement tokens
+        foreach ($tokens['page']->row() as $k => $v) {
+            $tokens['page_' . $k] = Format::dcaValue('tl_page', $k, $v);
+        }
+
+        // Return the "replacement not" if tag is found but does not validate
+        if (!$this->isTagValid($record)) {
+            return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($record['replacementNot']), $tokens);
+        }
 
         return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($record['replacement']), $tokens);
     }

@@ -26,7 +26,8 @@
     },
     "require": {
         "php": "^8.0",
-        "contao/core-bundle": "^4.13"
+        "contao/core-bundle": "^4.13",
+        "codefog/contao-haste": "^4.25"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0",
@@ -51,7 +52,8 @@
         "allow-plugins": {
             "contao-components/installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "contao/manager-plugin": true
+            "contao/manager-plugin": true,
+            "contao-community-alliance/composer-plugin": true
         }
     }
 }

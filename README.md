@@ -11,14 +11,8 @@ which allows to create powerful and dynamic replacements.
 I am a subpage of page ID 123!
 {endif}
 
-{if 456 in user.groups}
-I belong to member group ID 456!
-{endif}
-
-{if request.query.has('foobar')}
-My "foobar" parameter is: ##request.query.get('foobar')##
-{else}
-I have no "foobar" parameter :(
+{if member and 456 in member.groups}
+I belong to the member group ID 456!
 {endif}
 ```
 
@@ -31,17 +25,14 @@ Below you can find a list of supported simple tokens:
 
 Example: `page.id` or `page.trail`.
 
-### Current request properties: `request.*` 
+### Current member properties: `member.*`
 
-Example: `request.query.get('foobar')`.
+Example: `member.id` or `member.firstname` or `member.groups`.
 
-### Tag chunks: `tag.*`
 
-Example: the `{{custom::my-tag::foo::bar}}` insert tag produces `tag.0` and `tag.1` as `foo` and `bar` respectively.
+## Security notes
 
-### Current user properties: `user.*`
-
-Example: `user.id` or `user.firstname` or `user.groups`.
+The objects should NEVER be used as replacement tokens …
 
 
 ## Upgrade from version 1.x
