@@ -3,7 +3,7 @@
 Adds a back end module to define your custom insert tags. You can limit an insert tag to certain pages,
 show it to guests only, or restrict it to certain logged in front end member groups.
 
-The extension supports [Contao's Simple Token] syntax(https://docs.contao.org/dev/reference/services/#simpletokenparser),
+The extension supports [Contao's Simple Token](https://docs.contao.org/dev/reference/services/#simpletokenparser) syntax,
 which allows to create powerful and dynamic replacements.
 
 
