@@ -3,13 +3,13 @@
 Adds a back end module to define your custom insert tags. You can limit an insert tag to certain pages,
 show it to guests only, or restrict it to certain logged in front end member groups.
 
-The extension supports [Contao's Simple Token](https://docs.contao.org/dev/reference/services/#simpletokenparser) syntax,
-which allows to create powerful and dynamic replacements.
+For more complex use cases, the extension also supports [Contao's Simple Token syntax](https://docs.contao.org/dev/reference/services/#simpletokenparser),
+which allows for more powerful and dynamic replacements.
 
 
-## Supported simple tokens
+## Supported Simple Tokens
 
-The simple tokens are split into two types:
+The Simple Tokens are split into two types:
 
 ### Evaluation tokens
 
@@ -17,7 +17,7 @@ The evaluation tokens are meant to be used in the conditional statements and hav
 
 Here is a list of supported evaluation tokens:
 
-1. `member.*` – current member properties, if logged in.
+1. `member.*` – current member properties, if logged in. Caution, it can be `null` if no member is logged in!
 2. `page.*` – current page properties.
 
 Examples:
