@@ -26,6 +26,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class InsertTagHandler
 {
+    private array $cache = [];
+
     public function __construct(
         private Connection $connection,
         private InsertTagParser $insertTagParser,
@@ -80,13 +82,11 @@ class InsertTagHandler
      */
     private function getTagRecord(string $tag): ?array
     {
-        static $cache = [];
-
-        if (!array_key_exists($tag, $cache)) {
-            $cache[$tag] = $this->connection->fetchAssociative('SELECT * FROM tl_inserttags WHERE tag=?', [$tag]);
+        if (!array_key_exists($tag, $this->cache)) {
+            $this->cache[$tag] = $this->connection->fetchAssociative('SELECT * FROM tl_inserttags WHERE tag=?', [$tag]);
         }
 
-        return $cache[$tag] ?: null;
+        return $this->cache[$tag] ?: null;
     }
 
     /**
