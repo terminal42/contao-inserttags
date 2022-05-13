@@ -26,7 +26,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
     'list' => [
         'sorting' => [
             'mode' => 1,
-            'fields' => ['name'],
+            'fields' => ['tag'],
             'flag' => 1,
             'panelLayout' => 'filter;search,limit',
         ],
