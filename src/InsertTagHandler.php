@@ -49,7 +49,7 @@ class InsertTagHandler
 
         $record = $this->getTagRecord($tag);
 
-        if ($record === false) {
+        if ($record === null) {
             return null;
         }
 
