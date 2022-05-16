@@ -53,20 +53,27 @@ class InsertTagHandler
             return null;
         }
 
+        $user = $this->getFrontendUser();
+        $pageModel = $this->getPageModel();
+
         // Generate the evaluation tokens
         $tokens = [
-            'member' => $this->getFrontendUser(),
-            'page' => $this->getPageModel(),
+            'member' => $user,
+            'page' => $pageModel,
         ];
 
         // Generate the member replacement tokens
-        foreach ($tokens['member']->getData() as $k => $v) {
-            $tokens['member_' . $k] = Format::dcaValue('tl_member', $k, $v);
+        if ($user !== null) {
+            foreach ($user->getData() as $k => $v) {
+                $tokens['member_' . $k] = Format::dcaValue('tl_member', $k, $v);
+            }
         }
 
         // Generate the page replacement tokens
-        foreach ($tokens['page']->row() as $k => $v) {
-            $tokens['page_' . $k] = Format::dcaValue('tl_page', $k, $v);
+        if ($pageModel !== null) {
+            foreach ($pageModel->row() as $k => $v) {
+                $tokens['page_' . $k] = Format::dcaValue('tl_page', $k, $v);
+            }
         }
 
         // Return the "replacement not" if tag is found but does not validate
