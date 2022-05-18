@@ -47,7 +47,7 @@ class InsertTagHandler
             return null;
         }
 
-        $record = $this->getTagRecord($tag);
+        $record = $this->getTagRecord($chunks[1]);
 
         if ($record === null) {
             return null;
