@@ -78,10 +78,10 @@ class InsertTagHandler
 
         // Return the "replacement not" if tag is found but does not validate
         if (!$this->isTagValid($record)) {
-            return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($record['replacementNot']), $tokens);
+            return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline((string) $record['replacementNot']), $tokens);
         }
 
-        return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($record['replacement']), $tokens);
+        return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline((string) $record['replacement']), $tokens);
     }
 
     /**
