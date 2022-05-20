@@ -151,30 +151,32 @@ class InsertTagHandler
             return true;
         }
 
+        // The page model is not available
+        if (($request = $this->requestStack->getCurrentRequest()) === null) {
+            return false;
+        }
+
         $pageIds = StringUtil::deserialize($record['pages']);
 
         if (!\is_array($pageIds)) {
             return false;
         }
 
-        // The page model is not available
-        if (($request = $this->requestStack->getCurrentRequest()) === null) {
-            return false;
-        }
+        // Validate only if there is a page model
+        if (($currentPage = $this->getPageModel($request)) !== null) {
+            $pageIds = array_map('\intval', $pageIds);
+            $currentPageId = (int) $currentPage->id;
 
-        $pageIds = array_map('\intval', $pageIds);
-        $currentPage = $this->getPageModel($request);
-        $currentPageId = (int) $currentPage->id;
+            if (!in_array($currentPageId, $pageIds, true)) {
+                if (!$record['includesubpages']) {
+                    return false;
+                }
 
-        if (!in_array($currentPageId, $pageIds, true)) {
-            if (!$record['includesubpages']) {
-                return false;
-            }
+                $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
 
-            $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
-
-            if (count(array_intersect($pageIds, $parentIds)) === 0) {
-                return false;
+                if (count(array_intersect($pageIds, $parentIds)) === 0) {
+                    return false;
+                }
             }
         }
 
