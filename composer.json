@@ -1,31 +1,59 @@
 {
     "name": "terminal42/contao-inserttags",
-    "description": "Contao extension to create InsertTags to replace content in front- or backend.",
+    "description": "Contao extension to create custom insert tags.",
     "keywords": ["contao", "inserttags", "backend", "frontend"],
-    "type": "contao-module",
-    "license": "LGPL-3.0+",
+    "type": "contao-bundle",
+    "license": "MIT",
     "authors": [
         {
             "name": "terminal42 gmbh",
             "homepage": "https://www.terminal42.ch"
         }
     ],
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/terminal42"
+        },
+        {
+            "type": "other",
+            "url": "https://ko-fi.com/terminal42"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/terminal42/contao-inserttags/issues",
+        "source": "https://github.com/terminal42/contao-inserttags"
+    },
     "require": {
-        "php": "^5.3.2 || ^7.0",
-        "contao/core-bundle": "^3.5.1 || ^4.4",
-        "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
+        "php": "^8.0",
+        "contao/core-bundle": "^4.13",
+        "codefog/contao-haste": "^4.25"
     },
     "require-dev": {
-        "contao/core": "^3.5.1"
+        "contao/manager-plugin": "^2.0",
+        "symplify/easy-coding-standard": "^10.1",
+        "contao/easy-coding-standard": "^4.3"
     },
-    "replace": {
-        "contao-legacy/inserttags": "self.version"
+    "conflict": {
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Terminal42\\InsertTagsBundle\\": "src/"
+        }
     },
     "extra": {
-        "contao": {
-            "sources": {
-                "": "system/modules/inserttags"
-            }
+        "contao-manager-plugin": "Terminal42\\InsertTagsBundle\\ContaoManager\\Plugin"
+    },
+    "scripts": {
+        "cs-fixer": "@php vendor/bin/ecs check src/ --fix --ansi"
+    },
+    "config": {
+        "allow-plugins": {
+            "contao-components/installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "contao/manager-plugin": true,
+            "contao-community-alliance/composer-plugin": true
         }
     }
 }
