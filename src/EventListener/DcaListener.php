@@ -19,7 +19,9 @@ use Doctrine\DBAL\Connection;
 
 class DcaListener
 {
-    public function __construct(private Connection $connection) {}
+    public function __construct(private Connection $connection)
+    {
+    }
 
     /**
      * @Callback(table="tl_inserttags", target="config.onload")
@@ -31,8 +33,7 @@ class DcaListener
             $disableRTE = $this->connection->fetchOne("SELECT disableRTE FROM {$dc->table} WHERE id=?", [$dc->id]);
 
             if ($disableRTE) {
-                unset($GLOBALS['TL_DCA'][$dc->table]['fields']['replacement']['eval']['rte']);
-                unset($GLOBALS['TL_DCA'][$dc->table]['fields']['replacementNot']['eval']['rte']);
+                unset($GLOBALS['TL_DCA'][$dc->table]['fields']['replacement']['eval']['rte'], $GLOBALS['TL_DCA'][$dc->table]['fields']['replacementNot']['eval']['rte']);
             }
         }
     }

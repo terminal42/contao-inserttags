@@ -34,7 +34,8 @@ class InsertTagHandler
         private RequestStack $requestStack,
         private SimpleTokenParser $simpleTokenParser,
         private TokenStorageInterface $tokenStorage,
-    ) {}
+    ) {
+    }
 
     /**
      * Parse the insert tag.
@@ -49,7 +50,7 @@ class InsertTagHandler
 
         $record = $this->getTagRecord($chunks[1]);
 
-        if ($record === null) {
+        if (null === $record) {
             return null;
         }
 
@@ -63,16 +64,16 @@ class InsertTagHandler
         ];
 
         // Generate the member replacement tokens
-        if ($user !== null) {
+        if (null !== $user) {
             foreach ($user->getData() as $k => $v) {
-                $tokens['member_' . $k] = Format::dcaValue('tl_member', $k, $v);
+                $tokens['member_'.$k] = Format::dcaValue('tl_member', $k, $v);
             }
         }
 
         // Generate the page replacement tokens
-        if ($pageModel !== null) {
+        if (null !== $pageModel) {
             foreach ($pageModel->row() as $k => $v) {
-                $tokens['page_' . $k] = Format::dcaValue('tl_page', $k, $v);
+                $tokens['page_'.$k] = Format::dcaValue('tl_page', $k, $v);
             }
         }
 
@@ -89,7 +90,7 @@ class InsertTagHandler
      */
     private function getTagRecord(string $tag): ?array
     {
-        if (!array_key_exists($tag, $this->cache)) {
+        if (!\array_key_exists($tag, $this->cache)) {
             $this->cache[$tag] = $this->connection->fetchAssociative('SELECT * FROM tl_inserttags WHERE tag=?', [$tag]);
         }
 
@@ -129,7 +130,7 @@ class InsertTagHandler
 
         // Allow anonymous users if the "guest" group is allowed
         if (null === $user) {
-            return in_array(-1, $groups, true);
+            return \in_array(-1, $groups, true);
         }
 
         $userGroups = StringUtil::deserialize($user->groups);
@@ -167,14 +168,14 @@ class InsertTagHandler
             $pageIds = array_map('\intval', $pageIds);
             $currentPageId = (int) $currentPage->id;
 
-            if (!in_array($currentPageId, $pageIds, true)) {
+            if (!\in_array($currentPageId, $pageIds, true)) {
                 if (!$record['includesubpages']) {
                     return false;
                 }
 
                 $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
 
-                if (count(array_intersect($pageIds, $parentIds)) === 0) {
+                if (0 === \count(array_intersect($pageIds, $parentIds))) {
                     return false;
                 }
             }
@@ -188,7 +189,7 @@ class InsertTagHandler
      */
     private function getPageModel(Request $request = null): ?PageModel
     {
-        if ($request === null) {
+        if (null === $request) {
             $request = $this->requestStack->getCurrentRequest();
         }
 
@@ -218,6 +219,6 @@ class InsertTagHandler
 
         $user = $token->getUser();
 
-        return ($user instanceof FrontendUser) ? $user : null;
+        return $user instanceof FrontendUser ? $user : null;
     }
 }

@@ -17,7 +17,9 @@ use Terminal42\InsertTagsBundle\InsertTagHandler;
 
 class FrontendListener
 {
-    public function __construct(private InsertTagHandler $handler) {}
+    public function __construct(private InsertTagHandler $handler)
+    {
+    }
 
     /**
      * @Hook("replaceInsertTags")
