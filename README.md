@@ -65,6 +65,19 @@ Hello anonymous!
 You current page language is: ##page_language##
 ```
 
+### Comments
+
+From version 2.1.0 you can use comments to describe the replacements:
+
+```
+# Show content only to the logged in users
+{if member}
+Hello ##member_firstname## ##member_lastname##!
+{endif}
+```
+
+If you would like to use a hash as the first character of the line, you can escape it as follows: `\#`.
+
 
 ## Security concerns
 

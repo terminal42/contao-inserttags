@@ -79,10 +79,23 @@ class InsertTagHandler
 
         // Return the "replacement not" if tag is found but does not validate
         if (!$this->isTagValid($record)) {
-            return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline((string) $record['replacementNot']), $tokens);
+            return $this->parse((string) $record['replacementNot'], $tokens);
         }
 
-        return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline((string) $record['replacement']), $tokens);
+        return $this->parse((string) $record['replacement'], $tokens);
+    }
+
+    /**
+     * Parse the insert tags.
+     */
+    private function parse(string $value, array $tokens): string
+    {
+        // Remove the comment lines (starting with #) but honor lines with escaped hash characters (starting with \#)
+        $value = preg_replace_callback('/(\\\)?(#)(.*)\n/', static function ($matches): string {
+            return ($matches[1] === '\\') ? ($matches[2].$matches[3]."\n") : "\n";
+        }, $value);
+
+        return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($value), $tokens);
     }
 
     /**
