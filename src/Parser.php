@@ -32,7 +32,7 @@ class Parser
         $replacement = $this->insertTagParser->replaceInline($replacement);
         $replacement = $this->simpleTokenParser->parse($replacement, $tokens);
 
-        return $replacement;
+        return trim($replacement);
     }
 
     /**
