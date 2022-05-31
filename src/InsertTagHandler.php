@@ -90,12 +90,23 @@ class InsertTagHandler
      */
     private function parse(string $value, array $tokens): string
     {
-        // Remove the comment lines (starting with #) but honor lines with escaped hash characters (starting with \#)
-        $value = preg_replace_callback('/(\\\)?(#)(.*)\n/', static function ($matches): string {
-            return ($matches[1] === '\\') ? ($matches[2].$matches[3]."\n") : "\n";
-        }, $value);
+        $newValue = [];
 
-        return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline($value), $tokens);
+        foreach (explode("\n", $value) as $line) {
+            // Skip comments
+            if (str_starts_with($line, '#')) {
+                continue;
+            }
+
+            // Honor the escaped comments
+            if (str_starts_with($line, '\#')) {
+                $line = substr($line, 1);
+            }
+
+            $newValue[] = $line;
+        }
+
+        return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline(implode("\n", $newValue)), $tokens);
     }
 
     /**
