@@ -86,7 +86,7 @@ class InsertTagHandler
     }
 
     /**
-     * Parse the insert tags.
+     * Parse the replacement data.
      */
     private function parse(string $value, array $tokens): string
     {
