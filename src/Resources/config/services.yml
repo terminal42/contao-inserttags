@@ -11,6 +11,3 @@ services:
             - "@request_stack"
             - "@contao.string.simple_token_parser"
             - "@security.token_storage"
-
-    Terminal42\InsertTagsBundle\Migration\DuplicateRecordsMigration: ~
-    Terminal42\InsertTagsBundle\Migration\GuestsMigration: ~
