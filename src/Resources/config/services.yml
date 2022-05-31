@@ -1,7 +1,6 @@
 services:
     _defaults:
         autoconfigure: true
-        autowire: true
 
     terminal42_insert_tags.handler:
         class: Terminal42\InsertTagsBundle\InsertTagHandler
