@@ -11,7 +11,7 @@ services:
             - "@security.token_storage"
 
     terminal42_insert_tags.parser:
-        class: Terminal42\InsertTagsBundle\InsertTagParser
+        class: Terminal42\InsertTagsBundle\Parser
         arguments:
             - "@contao.insert_tag.parser"
             - "@contao.string.simple_token_parser"
