@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Terminal42\InsertTagsBundle;
 
-use Contao\CoreBundle\InsertTag\InsertTagParser;
-use Contao\CoreBundle\String\SimpleTokenParser;
 use Contao\Database;
 use Contao\FrontendUser;
 use Contao\PageModel;
@@ -30,9 +28,8 @@ class InsertTagHandler
 
     public function __construct(
         private Connection $connection,
-        private InsertTagParser $insertTagParser,
+        private Parser $parser,
         private RequestStack $requestStack,
-        private SimpleTokenParser $simpleTokenParser,
         private TokenStorageInterface $tokenStorage,
     ) {
     }
@@ -79,34 +76,10 @@ class InsertTagHandler
 
         // Return the "replacement not" if tag is found but does not validate
         if (!$this->isTagValid($record)) {
-            return $this->parse((string) $record['replacementNot'], $tokens);
+            return $this->parser->parse((string) $record['replacementNot'], $tokens);
         }
 
-        return $this->parse((string) $record['replacement'], $tokens);
-    }
-
-    /**
-     * Parse the replacement data.
-     */
-    private function parse(string $value, array $tokens): string
-    {
-        $newValue = [];
-
-        foreach (explode("\n", $value) as $line) {
-            // Skip comments
-            if (str_starts_with($line, '#')) {
-                continue;
-            }
-
-            // Honor the escaped comments
-            if (str_starts_with($line, '\#')) {
-                $line = substr($line, 1);
-            }
-
-            $newValue[] = $line;
-        }
-
-        return $this->simpleTokenParser->parse($this->insertTagParser->replaceInline(implode("\n", $newValue)), $tokens);
+        return $this->parser->parse((string) $record['replacement'], $tokens);
     }
 
     /**
