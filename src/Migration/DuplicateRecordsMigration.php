@@ -47,7 +47,7 @@ class DuplicateRecordsMigration extends AbstractMigration
         $tags = $this->connection->fetchFirstColumn('SELECT tag, COUNT(*) AS total FROM tl_inserttags GROUP BY tag HAVING total > 1');
 
         foreach ($tags as $tag) {
-            $records = $this->connection->fetchAllAssociative('SELECT * FROM tl_inserttags WHERE tag=?', [$tag]);
+            $records = $this->connection->fetchAllAssociative('SELECT * FROM tl_inserttags WHERE tag=? AND (limitpages=? OR protected=?)', [$tag, 1, 1]);
             $replacement = [];
 
             foreach ($records as $record) {
@@ -61,7 +61,7 @@ class DuplicateRecordsMigration extends AbstractMigration
 
                     if ($pageTitle !== false) {
                         $comments[] = sprintf('# Page ID %s is %s', $page, $pageTitle);
-                        $replacementPages[] = sprintf('%s in page.trail', $page);
+                        $replacementPages[] = $record['includesubpages'] ? sprintf('%s in page.trail', $page) : sprintf('page.id == %s', $page);
                     }
                 }
 
@@ -70,7 +70,7 @@ class DuplicateRecordsMigration extends AbstractMigration
 
                 // Generate replacement for member groups
                 foreach ($groups as $group) {
-                    $groupTitle = $this->connection->fetchOne('SELECT title FROM tl_page WHERE id=?', [$page]);
+                    $groupTitle = $this->connection->fetchOne('SELECT title FROM tl_page WHERE id=?', [$group]);
 
                     if ($groupTitle !== false) {
                         $comments[] = sprintf('# Member group ID %s is %s', $group, $groupTitle);
@@ -100,6 +100,9 @@ class DuplicateRecordsMigration extends AbstractMigration
                     $replacement[] = '';
                 }
             }
+
+            // Remove the last empty line from the array
+            array_pop($replacement);
 
             $this->connection->delete('tl_inserttags', ['tag' => $tag]);
 
