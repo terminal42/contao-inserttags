@@ -31,8 +31,7 @@
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0",
-        "symplify/easy-coding-standard": "^10.1",
-        "contao/easy-coding-standard": "^4.3"
+        "contao/test-case": "^4.13"
     },
     "conflict": {
         "contao/manager-plugin": "<2.0 || >=3.0"
@@ -42,11 +41,17 @@
             "Terminal42\\InsertTagsBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Terminal42\\InsertTagsBundle\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "contao-manager-plugin": "Terminal42\\InsertTagsBundle\\ContaoManager\\Plugin"
     },
     "scripts": {
-        "cs-fixer": "@php vendor/bin/ecs check src/ --fix --ansi"
+        "unit-tests": "tools/phpunit/vendor/bin/phpunit --colors=always",
+        "cs-fixer": "tools/ecs/vendor/bin/ecs check src/ tests/ --fix --ansi"
     },
     "config": {
         "allow-plugins": {

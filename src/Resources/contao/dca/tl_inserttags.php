@@ -82,9 +82,6 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         'tstamp' => [
             'sql' => ['type' => 'integer', 'unsigned' => true, 'default' => 0],
         ],
-        'type' => [
-            'sql' => ['type' => 'string', 'length' => 255, 'default' => ''],
-        ],
         'tag' => [
             'inputType' => 'text',
             'exclude' => true,

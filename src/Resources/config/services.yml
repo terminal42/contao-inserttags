@@ -6,7 +6,12 @@ services:
         class: Terminal42\InsertTagsBundle\InsertTagHandler
         arguments:
             - "@database_connection"
-            - "@contao.insert_tag.parser"
+            - "@terminal42_insert_tags.parser"
             - "@request_stack"
-            - "@contao.string.simple_token_parser"
             - "@security.token_storage"
+
+    terminal42_insert_tags.parser:
+        class: Terminal42\InsertTagsBundle\Parser
+        arguments:
+            - "@contao.insert_tag.parser"
+            - "@contao.string.simple_token_parser"

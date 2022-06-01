@@ -7,3 +7,9 @@ services:
         arguments:
             - "@database_connection"
             - "@contao.framework"
+
+    terminal42_insert_tags.migration.duplicate_records:
+        class: Terminal42\InsertTagsBundle\Migration\DuplicateRecordsMigration
+        arguments:
+            - "@database_connection"
+            - "@contao.framework"
