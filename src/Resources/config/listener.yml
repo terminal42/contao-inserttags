@@ -13,4 +13,6 @@ services:
         public: true
         arguments:
             - "@terminal42_insert_tags.handler"
+            - "@request_stack"
+            - "@contao.routing.scope_matcher"
 
