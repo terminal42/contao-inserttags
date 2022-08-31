@@ -12,12 +12,12 @@ declare(strict_types=1);
 
 namespace Terminal42\InsertTagsBundle;
 
+use Codefog\HasteBundle\Formatter;
 use Contao\Database;
 use Contao\FrontendUser;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
-use Haste\Util\Format;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -28,6 +28,7 @@ class InsertTagHandler
 
     public function __construct(
         private Connection $connection,
+        private Formatter $formatter,
         private Parser $parser,
         private RequestStack $requestStack,
         private TokenStorageInterface $tokenStorage,
@@ -63,14 +64,14 @@ class InsertTagHandler
         // Generate the member replacement tokens
         if (null !== $user) {
             foreach ($user->getData() as $k => $v) {
-                $tokens['member_'.$k] = Format::dcaValue('tl_member', $k, $v);
+                $tokens['member_'.$k] = $this->formatter->dcaValue('tl_member', $k, $v);
             }
         }
 
         // Generate the page replacement tokens
         if (null !== $pageModel) {
             foreach ($pageModel->row() as $k => $v) {
-                $tokens['page_'.$k] = Format::dcaValue('tl_page', $k, $v);
+                $tokens['page_'.$k] = $this->formatter->dcaValue('tl_page', $k, $v);
             }
         }
 
