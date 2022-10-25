@@ -196,6 +196,10 @@ class InsertTagHandler
 
         $page = $request->attributes->get('pageModel');
 
+        if ($page instanceof PageModel) {
+            return $page;
+        }
+
         if (
             isset($GLOBALS['objPage'])
             && $GLOBALS['objPage'] instanceof PageModel
