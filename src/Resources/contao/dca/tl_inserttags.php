@@ -13,7 +13,7 @@ declare(strict_types=1);
 $GLOBALS['TL_DCA']['tl_inserttags'] = [
     // Config
     'config' => [
-        'dataContainer' => 'Table',
+        'dataContainer' => \Contao\DC_Table::class,
         'enableVersioning' => true,
         'sql' => [
             'keys' => [
