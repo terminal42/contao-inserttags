@@ -7,6 +7,14 @@ For more complex use cases, the extension also supports [Contao's Simple Token s
 which allows for more powerful and dynamic replacements.
 
 
+## Example token
+
+- Insert tag: `phone`
+- Replacement: `+48 123 456 789`
+- Usage: `{{custom::phone}}`
+- Output: `+48 123 456 789`
+
+
 ## Supported Simple Tokens
 
 The Simple Tokens are split into two types:
