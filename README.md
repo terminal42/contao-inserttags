@@ -132,3 +132,8 @@ This option has been removed completely, as insert tags are only present in the 
 ### Removed "cacheOutput"
 
 This option has been removed completely as it is not required in version 2 anymore.
+
+
+## License
+
+This bundle is released under the [MIT license](LICENSE)

@@ -31,7 +31,8 @@
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0",
-        "contao/test-case": "^4.13"
+        "contao/test-case": "^4.13",
+        "terminal42/contao-build-tools": "dev-main"
     },
     "conflict": {
         "contao/manager-plugin": "<2.0 || >=3.0"
@@ -50,15 +51,14 @@
         "contao-manager-plugin": "Terminal42\\InsertTagsBundle\\ContaoManager\\Plugin"
     },
     "scripts": {
-        "unit-tests": "tools/phpunit/vendor/bin/phpunit --colors=always",
-        "cs-fixer": "tools/ecs/vendor/bin/ecs check src/ tests/ --fix --ansi"
+        "unit-tests": "tools/phpunit/vendor/bin/phpunit --colors=always"
     },
     "config": {
         "allow-plugins": {
             "contao-components/installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
             "contao/manager-plugin": true,
-            "contao-community-alliance/composer-plugin": true
+            "contao-community-alliance/composer-plugin": true,
+            "terminal42/contao-build-tools": true
         }
     }
 }
