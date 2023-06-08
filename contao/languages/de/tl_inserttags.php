@@ -2,14 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of terminal42/contao-inserttags.
- *
- * (c) terminal42
- *
- * @license MIT
- */
-
 // Fields
 $GLOBALS['TL_LANG']['tl_inserttags']['tag'] = ['Platzhalter', 'Bitte geben Sie den Platzhalter ein.<br />Sie können diesen Platzhalter in einem beliebigen Inhaltselement als {{custom::platzhalter}} verwenden.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['replacement'] = ['Ersatz', 'Geben Sie den Inhalt ein, durch den der Platzhalter ersetzt werden soll.'];

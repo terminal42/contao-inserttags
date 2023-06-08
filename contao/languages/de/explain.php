@@ -1,15 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of terminal42/contao-inserttags.
- *
- * (c) terminal42
- *
- * @license MIT
- */
-
 $GLOBALS['TL_LANG']['XPL']['customInsertTags'] = [
     ['Evaluation tokens', 'These tokens can be used in conditional statements.'],
     ['<code>page.*</code>', 'Zugriff auf die Seiteneigenschaften. Beispiel: <code>page.id</code> oder <code>page.trail</code>.'],

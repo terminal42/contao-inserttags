@@ -1,19 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
-/*
- * This file is part of terminal42/contao-inserttags.
- *
- * (c) terminal42
- *
- * @license MIT
- */
+use Contao\DC_Table;
 
 $GLOBALS['TL_DCA']['tl_inserttags'] = [
     // Config
     'config' => [
-        'dataContainer' => \Contao\DC_Table::class,
+        'dataContainer' => DC_Table::class,
         'enableVersioning' => true,
         'sql' => [
             'keys' => [

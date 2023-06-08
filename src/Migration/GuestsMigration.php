@@ -2,14 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of terminal42/contao-inserttags.
- *
- * (c) terminal42
- *
- * @license MIT
- */
-
 namespace Terminal42\InsertTagsBundle\Migration;
 
 use Contao\CoreBundle\Framework\ContaoFramework;
@@ -20,13 +12,10 @@ use Doctrine\DBAL\Connection;
 
 class GuestsMigration extends AbstractMigration
 {
-    private Connection $connection;
-    private ContaoFramework $framework;
-
-    public function __construct(Connection $connection, ContaoFramework $framework)
-    {
-        $this->connection = $connection;
-        $this->framework = $framework;
+    public function __construct(
+        private Connection $connection,
+        private ContaoFramework $framework,
+    ) {
     }
 
     public function shouldRun(): bool
@@ -58,7 +47,7 @@ class GuestsMigration extends AbstractMigration
         $this->connection->executeStatement('
             ALTER TABLE
                 tl_inserttags
-            DROP COLUMN 
+            DROP COLUMN
                 guests
         ');
 

@@ -2,14 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of terminal42/contao-inserttags.
- *
- * (c) terminal42
- *
- * @license MIT
- */
-
 namespace Terminal42\InsertTagsBundle\Migration;
 
 use Contao\CoreBundle\Framework\ContaoFramework;
@@ -20,13 +12,10 @@ use Doctrine\DBAL\Connection;
 
 class DuplicateRecordsMigration extends AbstractMigration
 {
-    private Connection $connection;
-    private ContaoFramework $framework;
-
-    public function __construct(Connection $connection, ContaoFramework $framework)
-    {
-        $this->connection = $connection;
-        $this->framework = $framework;
+    public function __construct(
+        private Connection $connection,
+        private ContaoFramework $framework,
+    ) {
     }
 
     public function shouldRun(): bool
@@ -59,7 +48,7 @@ class DuplicateRecordsMigration extends AbstractMigration
                 foreach ($pages as $page) {
                     $pageTitle = $this->connection->fetchOne('SELECT title FROM tl_page WHERE id=?', [$page]);
 
-                    if ($pageTitle !== false) {
+                    if (false !== $pageTitle) {
                         $comments[] = sprintf('# Page ID %s is %s', $page, $pageTitle);
                         $replacementPages[] = $record['includesubpages'] ? sprintf('%s in page.trail', $page) : sprintf('page.id == %s', $page);
                     }
@@ -72,7 +61,7 @@ class DuplicateRecordsMigration extends AbstractMigration
                 foreach ($groups as $group) {
                     $groupTitle = $this->connection->fetchOne('SELECT title FROM tl_page WHERE id=?', [$group]);
 
-                    if ($groupTitle !== false) {
+                    if (false !== $groupTitle) {
                         $comments[] = sprintf('# Member group ID %s is %s', $group, $groupTitle);
                         $replacementGroups[] = sprintf('%s in member.groups', $group);
                     }
@@ -80,19 +69,19 @@ class DuplicateRecordsMigration extends AbstractMigration
 
                 $statementChunks = [];
 
-                if (count($replacementGroups) > 0) {
+                if (\count($replacementGroups) > 0) {
                     $statementChunks[] = sprintf('member and (%s)', implode(' or ', $replacementGroups));
                 }
 
-                if (count($replacementPages) > 0) {
-                    if (count($statementChunks) > 0) {
+                if (\count($replacementPages) > 0) {
+                    if (\count($statementChunks) > 0) {
                         $statementChunks[] = sprintf('(%s)', implode(' or ', $replacementPages));
                     } else {
                         $statementChunks[] = sprintf('%s', implode(' or ', $replacementPages));
                     }
                 }
 
-                if (count($statementChunks) > 0) {
+                if (\count($statementChunks) > 0) {
                     $replacement[] = implode("\n", $comments);
                     $replacement[] = sprintf('{if %s}', implode(' and ', $statementChunks));
                     $replacement[] = $record['replacement'];

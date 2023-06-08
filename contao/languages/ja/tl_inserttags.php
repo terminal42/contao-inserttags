@@ -2,14 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of terminal42/contao-inserttags.
- *
- * (c) terminal42
- *
- * @license MIT
- */
-
 // Fields
 $GLOBALS['TL_LANG']['tl_inserttags']['tag'] = ['挿入タグ', '挿入タグを入力してください。<br>{{custom::your-tag}}を使用して、どのコンテント要素でもこのタグを使用できます。'];
 $GLOBALS['TL_LANG']['tl_inserttags']['replacement'] = ['置き換え', '挿入タグと置き換える内容を入力してください。'];

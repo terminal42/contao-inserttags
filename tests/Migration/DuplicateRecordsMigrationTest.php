@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Terminal42\InsertTagsBundle\Tests\Migration;
 
 use Contao\TestCase\ContaoTestCase;
@@ -10,43 +12,72 @@ use Terminal42\InsertTagsBundle\Migration\DuplicateRecordsMigration;
 
 class DuplicateRecordsMigrationTest extends ContaoTestCase
 {
-    public function testShouldRunSuccess()
+    public function testShouldRunSuccess(): void
     {
         $schemaManager = $this->createConfiguredMock(AbstractSchemaManager::class, [
             'tablesExist' => true,
         ]);
 
-        $migration = $this->createMigration(['createSchemaManager', 'fetchOne'], function ($mock) use ($schemaManager) {
-            $mock->expects($this->once())->method('createSchemaManager')->willReturn($schemaManager);
-            $mock->expects($this->once())->method('fetchOne')->willReturn(1);
-        });
+        $migration = $this->createMigration(
+            ['createSchemaManager', 'fetchOne'],
+            function ($mock) use ($schemaManager): void {
+                $mock
+                    ->expects($this->once())
+                    ->method('createSchemaManager')
+                    ->willReturn($schemaManager)
+                ;
+                $mock
+                    ->expects($this->once())
+                    ->method('fetchOne')
+                    ->willReturn(1)
+                ;
+            }
+        );
 
         $this->assertTrue($migration->shouldRun());
     }
 
-    public function testShouldRunNoTables()
+    public function testShouldRunNoTables(): void
     {
         $schemaManager = $this->createConfiguredMock(AbstractSchemaManager::class, [
             'tablesExist' => false,
         ]);
 
-        $migration = $this->createMigration(['createSchemaManager'], function (MockObject $mock) use ($schemaManager) {
-            $mock->expects($this->once())->method('createSchemaManager')->willReturn($schemaManager);
-        });
+        $migration = $this->createMigration(
+            ['createSchemaManager'],
+            function (MockObject $mock) use ($schemaManager): void {
+                $mock
+                    ->expects($this->once())
+                    ->method('createSchemaManager')
+                    ->willReturn($schemaManager)
+                ;
+            }
+        );
 
         $this->assertFalse($migration->shouldRun());
     }
 
-    public function testShouldRunNoRecords()
+    public function testShouldRunNoRecords(): void
     {
         $schemaManager = $this->createConfiguredMock(AbstractSchemaManager::class, [
             'tablesExist' => true,
         ]);
 
-        $migration = $this->createMigration(['createSchemaManager', 'fetchOne'], function (MockObject $mock) use ($schemaManager) {
-            $mock->expects($this->once())->method('createSchemaManager')->willReturn($schemaManager);
-            $mock->expects($this->once())->method('fetchOne')->willReturn(0);
-        });
+        $migration = $this->createMigration(
+            ['createSchemaManager', 'fetchOne'],
+            function (MockObject $mock) use ($schemaManager): void {
+                $mock
+                    ->expects($this->once())
+                    ->method('createSchemaManager')
+                    ->willReturn($schemaManager)
+                ;
+                $mock
+                    ->expects($this->once())
+                    ->method('fetchOne')
+                    ->willReturn(0)
+                ;
+            }
+        );
 
         $this->assertFalse($migration->shouldRun());
     }
@@ -54,21 +85,44 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
     /**
      * @dataProvider provider
      */
-    public function testRun(string $tag, array $tagRecords, array $externalRecords, string $replacement)
+    public function testRun(string $tag, array $tagRecords, array $externalRecords, string $replacement): void
     {
-        $migration = $this->createMigration(['fetchFirstColumn', 'fetchAllAssociative', 'fetchOne', 'delete', 'insert'], function (MockObject $mock) use ($tag, $tagRecords, $externalRecords, $replacement) {
-            $mock->expects($this->once())->method('fetchFirstColumn')->willReturn([$tag]);
-            $mock->expects($this->once())->method('fetchAllAssociative')->willReturn($tagRecords);
-            $mock->expects($this->exactly(count($externalRecords)))->method('fetchOne')->willReturnOnConsecutiveCalls(...$externalRecords);
+        $migration = $this->createMigration(
+            ['fetchFirstColumn', 'fetchAllAssociative', 'fetchOne', 'delete', 'insert'],
+            function (MockObject $mock) use ($tag, $tagRecords, $externalRecords, $replacement): void {
+                $mock
+                    ->expects($this->once())
+                    ->method('fetchFirstColumn')
+                    ->willReturn([$tag])
+                ;
+                $mock
+                    ->expects($this->once())
+                    ->method('fetchAllAssociative')
+                    ->willReturn($tagRecords)
+                ;
+                $mock
+                    ->expects($this->exactly(\count($externalRecords)))
+                    ->method('fetchOne')
+                    ->willReturnOnConsecutiveCalls(...$externalRecords)
+                ;
 
-            $mock->expects($this->once())->method('delete')->with('tl_inserttags', ['tag' => $tag]);
-            $mock->expects($this->once())->method('insert')->with('tl_inserttags', [
-                'tstamp' => time(),
-                'tag' => $tag,
-                'replacement' => $replacement,
-                'disableRTE' => true,
-            ]);
-        });
+                $mock
+                    ->expects($this->once())
+                    ->method('delete')
+                    ->with('tl_inserttags', ['tag' => $tag])
+                ;
+                $mock
+                    ->expects($this->once())
+                    ->method('insert')
+                    ->with('tl_inserttags', [
+                        'tstamp' => time(),
+                        'tag' => $tag,
+                        'replacement' => $replacement,
+                        'disableRTE' => true,
+                    ])
+                ;
+            }
+        );
 
         $this->assertTrue($migration->run()->isSuccessful());
     }

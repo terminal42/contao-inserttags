@@ -2,17 +2,9 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of terminal42/contao-inserttags.
- *
- * (c) terminal42
- *
- * @license MIT
- */
-
 namespace Terminal42\InsertTagsBundle\EventListener;
 
-use Contao\CoreBundle\ServiceAnnotation\Callback;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
 use Contao\Input;
 use Doctrine\DBAL\Connection;
@@ -23,9 +15,7 @@ class DcaListener
     {
     }
 
-    /**
-     * @Callback(table="tl_inserttags", target="config.onload")
-     */
+    #[AsCallback(table: 'tl_inserttags', target: 'config.onload')]
     public function onLoadCallback(DataContainer $dc): void
     {
         // Disable rich text editor if checkbox is set
@@ -38,23 +28,19 @@ class DcaListener
         }
     }
 
-    /**
-     * @Callback(table="tl_inserttags", target="list.label.label")
-     */
+    #[AsCallback(table: 'tl_inserttags', target: 'list.label.label')]
     public function onLabelCallback(array $row): string
     {
         $label = $row['tag'];
 
-        if (\strlen($row['description']) > 0) {
+        if ('' !== $row['description']) {
             $label .= sprintf('<span class="tl_gray">(%s)</span>', $row['description']);
         }
 
         return $label;
     }
 
-    /**
-     * @Callback(table="tl_inserttags", target="fields.groups.options")
-     */
+    #[AsCallback(table: 'tl_inserttags', target: 'fields.groups.options')]
     public function onGroupsOptionsCallback(): array
     {
         $options = [-1 => &$GLOBALS['TL_LANG']['MSC']['guests']];
