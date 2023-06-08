@@ -23,8 +23,8 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
             'panelLayout' => 'filter;search,limit',
         ],
         'label' => [
-            'fields' => ['tag'],
-            'format' => '%s',
+            'fields' => ['tag', 'description'],
+            'format' => '%s <span class="tl_gray">(%s)</span>',
         ],
         'global_operations' => [
             'all' => [

@@ -28,18 +28,6 @@ class DcaListener
         }
     }
 
-    #[AsCallback(table: 'tl_inserttags', target: 'list.label.label')]
-    public function onLabelCallback(array $row): string
-    {
-        $label = $row['tag'];
-
-        if ('' !== $row['description']) {
-            $label .= sprintf('<span class="tl_gray">(%s)</span>', $row['description']);
-        }
-
-        return $label;
-    }
-
     #[AsCallback(table: 'tl_inserttags', target: 'fields.groups.options')]
     public function onGroupsOptionsCallback(): array
     {
