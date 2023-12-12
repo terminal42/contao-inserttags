@@ -26,12 +26,13 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
                     ->method('createSchemaManager')
                     ->willReturn($schemaManager)
                 ;
+
                 $mock
                     ->expects($this->once())
                     ->method('fetchOne')
                     ->willReturn(1)
                 ;
-            }
+            },
         );
 
         $this->assertTrue($migration->shouldRun());
@@ -51,7 +52,7 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
                     ->method('createSchemaManager')
                     ->willReturn($schemaManager)
                 ;
-            }
+            },
         );
 
         $this->assertFalse($migration->shouldRun());
@@ -71,12 +72,13 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
                     ->method('createSchemaManager')
                     ->willReturn($schemaManager)
                 ;
+
                 $mock
                     ->expects($this->once())
                     ->method('fetchOne')
                     ->willReturn(0)
                 ;
-            }
+            },
         );
 
         $this->assertFalse($migration->shouldRun());
@@ -95,11 +97,13 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
                     ->method('fetchFirstColumn')
                     ->willReturn([$tag])
                 ;
+
                 $mock
                     ->expects($this->once())
                     ->method('fetchAllAssociative')
                     ->willReturn($tagRecords)
                 ;
+
                 $mock
                     ->expects($this->exactly(\count($externalRecords)))
                     ->method('fetchOne')
@@ -111,6 +115,7 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
                     ->method('delete')
                     ->with('tl_inserttags', ['tag' => $tag])
                 ;
+
                 $mock
                     ->expects($this->once())
                     ->method('insert')
@@ -121,7 +126,7 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
                         'disableRTE' => true,
                     ])
                 ;
-            }
+            },
         );
 
         $this->assertTrue($migration->run()->isSuccessful());

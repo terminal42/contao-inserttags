@@ -31,7 +31,7 @@ class InsertTagHandler
     /**
      * Parse the insert tag.
      */
-    public function parseInsertTag(string $tag): ?string
+    public function parseInsertTag(string $tag): string|null
     {
         $chunks = explode('::', $tag);
 
@@ -87,7 +87,7 @@ class InsertTagHandler
     /**
      * Get the tag record.
      */
-    private function getTagRecord(string $tag): ?array
+    private function getTagRecord(string $tag): array|null
     {
         if (!\array_key_exists($tag, $this->cache)) {
             $this->cache[$tag] = $this->connection->fetchAssociative('SELECT * FROM tl_inserttags WHERE tag=?', [$tag]);
@@ -186,13 +186,13 @@ class InsertTagHandler
     /**
      * Get page model from the request.
      */
-    private function getPageModel(?Request $request = null): ?PageModel
+    private function getPageModel(Request|null $request = null): PageModel|null
     {
-        if (null === $request) {
+        if (!$request) {
             $request = $this->requestStack->getCurrentRequest();
         }
 
-        if (!$request->attributes->has('pageModel')) {
+        if (!$request || !$request->attributes->has('pageModel')) {
             return null;
         }
 
@@ -216,7 +216,7 @@ class InsertTagHandler
     /**
      * Get the frontend user.
      */
-    private function getFrontendUser(): ?FrontendUser
+    private function getFrontendUser(): FrontendUser|null
     {
         $user = $this->security->getUser();
 

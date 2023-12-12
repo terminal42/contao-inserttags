@@ -12,9 +12,6 @@ use Terminal42\InsertTagsBundle\Terminal42InsertTagsBundle;
 
 class Plugin implements BundlePluginInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getBundles(ParserInterface $parser): array
     {
         return [

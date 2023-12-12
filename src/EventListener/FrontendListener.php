@@ -19,7 +19,7 @@ class FrontendListener
     }
 
     #[AsHook('replaceInsertTags')]
-    public function onReplaceInsertTags(string $tag)
+    public function onReplaceInsertTags(string $tag): string|false
     {
         $request = $this->requestStack->getCurrentRequest();
 
