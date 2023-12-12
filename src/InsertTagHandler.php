@@ -10,9 +10,10 @@ use Contao\FrontendUser;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
+use Haste\Util\Format;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Security;
 
 class InsertTagHandler
 {
@@ -20,10 +21,10 @@ class InsertTagHandler
 
     public function __construct(
         private Connection $connection,
-        private Formatter $formatter,
         private Parser $parser,
         private RequestStack $requestStack,
-        private TokenStorageInterface $tokenStorage,
+        private Security $security,
+        private Formatter|null $formatter,
     ) {
     }
 
@@ -56,14 +57,22 @@ class InsertTagHandler
         // Generate the member replacement tokens
         if (null !== $user) {
             foreach ($user->getData() as $k => $v) {
-                $tokens['member_'.$k] = $this->formatter->dcaValue('tl_member', $k, $v);
+                if ($this->formatter) {
+                    $tokens['member_'.$k] = $this->formatter->dcaValue('tl_member', $k, $v);
+                } else {
+                    $tokens['member_'.$k] = Format::dcaValue('tl_member', $k, $v);
+                }
             }
         }
 
         // Generate the page replacement tokens
         if (null !== $pageModel) {
             foreach ($pageModel->row() as $k => $v) {
-                $tokens['page_'.$k] = $this->formatter->dcaValue('tl_page', $k, $v);
+                if ($this->formatter) {
+                    $tokens['page_'.$k] = $this->formatter->dcaValue('tl_page', $k, $v);
+                } else {
+                    $tokens['page_'.$k] = Format::dcaValue('tl_page', $k, $v);
+                }
             }
         }
 
@@ -209,13 +218,7 @@ class InsertTagHandler
      */
     private function getFrontendUser(): ?FrontendUser
     {
-        $token = $this->tokenStorage->getToken();
-
-        if (null === $token) {
-            return null;
-        }
-
-        $user = $token->getUser();
+        $user = $this->security->getUser();
 
         return $user instanceof FrontendUser ? $user : null;
     }

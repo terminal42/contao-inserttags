@@ -6,10 +6,10 @@ services:
         class: Terminal42\InsertTagsBundle\InsertTagHandler
         arguments:
             - "@database_connection"
-            - '@Codefog\HasteBundle\Formatter'
             - "@terminal42_insert_tags.parser"
             - "@request_stack"
-            - "@security.token_storage"
+            - "@security.helper"
+            - '@?Codefog\HasteBundle\Formatter'
 
     terminal42_insert_tags.parser:
         class: Terminal42\InsertTagsBundle\Parser
