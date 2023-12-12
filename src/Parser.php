@@ -10,14 +10,11 @@ use Contao\CoreBundle\String\SimpleTokenParser;
 class Parser
 {
     public function __construct(
-        private InsertTagParser $insertTagParser,
-        private SimpleTokenParser $simpleTokenParser,
+        private readonly InsertTagParser $insertTagParser,
+        private readonly SimpleTokenParser $simpleTokenParser,
     ) {
     }
 
-    /**
-     * Parse the replacement data.
-     */
     public function parse(string $replacement, array $tokens): string
     {
         $replacement = $this->stripComments($replacement);
@@ -27,9 +24,6 @@ class Parser
         return trim($replacement);
     }
 
-    /**
-     * Strip the comments.
-     */
     private function stripComments(string $value): string
     {
         $newValue = [];

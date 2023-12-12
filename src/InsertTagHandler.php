@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Terminal42\InsertTagsBundle;
 
 use Codefog\HasteBundle\Formatter;
+use Contao\CoreBundle\Security\ContaoCorePermissions;
 use Contao\Database;
 use Contao\FrontendUser;
 use Contao\PageModel;
@@ -20,17 +21,14 @@ class InsertTagHandler
     private array $cache = [];
 
     public function __construct(
-        private Connection $connection,
-        private Parser $parser,
-        private RequestStack $requestStack,
-        private Security $security,
-        private Formatter|null $formatter,
+        private readonly Connection $connection,
+        private readonly Parser $parser,
+        private readonly RequestStack $requestStack,
+        private readonly Security $security,
+        private readonly Formatter|null $formatter,
     ) {
     }
 
-    /**
-     * Parse the insert tag.
-     */
     public function parseInsertTag(string $tag): string|null
     {
         $chunks = explode('::', $tag);
@@ -39,7 +37,7 @@ class InsertTagHandler
             return null;
         }
 
-        $record = $this->getTagRecord($chunks[1]);
+        $record = $this->getTagRecord($chunks[1] ?? '');
 
         if (null === $record) {
             return null;
@@ -57,22 +55,14 @@ class InsertTagHandler
         // Generate the member replacement tokens
         if (null !== $user) {
             foreach ($user->getData() as $k => $v) {
-                if ($this->formatter) {
-                    $tokens['member_'.$k] = $this->formatter->dcaValue('tl_member', $k, $v);
-                } else {
-                    $tokens['member_'.$k] = Format::dcaValue('tl_member', $k, $v);
-                }
+                $tokens['member_'.$k] = $this->dcaFormat('tl_member', $k, $v);
             }
         }
 
         // Generate the page replacement tokens
         if (null !== $pageModel) {
             foreach ($pageModel->row() as $k => $v) {
-                if ($this->formatter) {
-                    $tokens['page_'.$k] = $this->formatter->dcaValue('tl_page', $k, $v);
-                } else {
-                    $tokens['page_'.$k] = Format::dcaValue('tl_page', $k, $v);
-                }
+                $tokens['page_'.$k] = $this->dcaFormat('tl_page', $k, $v);
             }
         }
 
@@ -84,9 +74,15 @@ class InsertTagHandler
         return $this->parser->parse((string) $record['replacement'], $tokens);
     }
 
-    /**
-     * Get the tag record.
-     */
+    private function dcaFormat(string $table, string $field, mixed $value): mixed
+    {
+        if ($this->formatter) {
+            return $this->formatter->dcaValue($table, $field, $value);
+        }
+
+        return Format::dcaValue($table, $field, $value);
+    }
+
     private function getTagRecord(string $tag): array|null
     {
         if (!\array_key_exists($tag, $this->cache)) {
@@ -108,43 +104,15 @@ class InsertTagHandler
         return true;
     }
 
-    /**
-     * Validate the protection.
-     */
     private function validateProtection(array $record): bool
     {
         if (!$record['protected']) {
             return true;
         }
 
-        $groups = StringUtil::deserialize($record['groups']);
-
-        // There are no groups
-        if (!\is_array($groups) || 0 === \count($groups)) {
-            return false;
-        }
-
-        $groups = array_map('\intval', $groups);
-        $user = $this->getFrontendUser();
-
-        // Allow anonymous users if the "guest" group is allowed
-        if (null === $user) {
-            return \in_array(-1, $groups, true);
-        }
-
-        $userGroups = StringUtil::deserialize($user->groups);
-
-        // Member is not in the group
-        if (!\is_array($userGroups) || 0 === \count($userGroups) || 0 === \count(array_intersect($groups, $userGroups))) {
-            return false;
-        }
-
-        return true;
+        return $this->security->isGranted(ContaoCorePermissions::MEMBER_IN_GROUPS, StringUtil::deserialize($record['groups'], true));
     }
 
-    /**
-     * Validate the limit pages.
-     */
     private function validateLimitPages(array $record): bool
     {
         if (!$record['limitpages']) {
@@ -152,7 +120,9 @@ class InsertTagHandler
         }
 
         // The page model is not available
-        if (($request = $this->requestStack->getCurrentRequest()) === null) {
+        $currentPage = $this->getPageModel();
+
+        if (null === $currentPage) {
             return false;
         }
 
@@ -163,7 +133,7 @@ class InsertTagHandler
         }
 
         // Validate only if there is a page model
-        if (($currentPage = $this->getPageModel($request)) !== null) {
+        if (($currentPage = $this->getPageModel()) !== null) {
             $pageIds = array_map('\intval', $pageIds);
             $currentPageId = (int) $currentPage->id;
 
@@ -183,16 +153,11 @@ class InsertTagHandler
         return true;
     }
 
-    /**
-     * Get page model from the request.
-     */
-    private function getPageModel(Request|null $request = null): PageModel|null
+    private function getPageModel(): PageModel|null
     {
-        if (!$request) {
-            $request = $this->requestStack->getCurrentRequest();
-        }
+        $request = $this->requestStack->getCurrentRequest();
 
-        if (!$request || !$request->attributes->has('pageModel')) {
+        if (!$request instanceof Request || !$request->attributes->has('pageModel')) {
             return null;
         }
 
@@ -213,9 +178,6 @@ class InsertTagHandler
         return PageModel::findByPk($page);
     }
 
-    /**
-     * Get the frontend user.
-     */
     private function getFrontendUser(): FrontendUser|null
     {
         $user = $this->security->getUser();

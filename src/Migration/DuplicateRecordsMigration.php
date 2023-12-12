@@ -13,8 +13,8 @@ use Doctrine\DBAL\Connection;
 class DuplicateRecordsMigration extends AbstractMigration
 {
     public function __construct(
-        private Connection $connection,
-        private ContaoFramework $framework,
+        private readonly Connection $connection,
+        private readonly ContaoFramework $framework,
     ) {
     }
 

@@ -8,11 +8,10 @@ services:
         arguments:
             - "@database_connection"
 
-    terminal42_insert_tags.frontend:
-        class: Terminal42\InsertTagsBundle\EventListener\FrontendListener
+    terminal42_insert_tags.insert_tag:
+        class: Terminal42\InsertTagsBundle\EventListener\InsertTagListener
         public: true
         arguments:
             - "@terminal42_insert_tags.handler"
-            - "@request_stack"
-            - "@contao.routing.scope_matcher"
+            - "@monolog.logger.contao.error"
 

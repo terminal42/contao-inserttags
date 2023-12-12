@@ -11,7 +11,7 @@ use Doctrine\DBAL\Connection;
 
 class DcaListener
 {
-    public function __construct(private Connection $connection)
+    public function __construct(private readonly Connection $connection)
     {
     }
 

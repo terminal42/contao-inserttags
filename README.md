@@ -35,22 +35,25 @@ Examples:
 This content is visible explicitly to the members of group ID 456.
 {endif}
 
-{if 123 in page.trail}
+{if page and 123 in page.trail}
 I am a subpage of page ID 123!
 {endif}
 
-{if page_language in ["de_DE", "pl_PL"]}
+{if page and page_language in ["de_DE", "pl_PL"]}
 German and Polish
 {else}
 All other languages
 {endif}
 
-{if page_language matches "^de"}
+{if page and page_language matches "^de"}
 German
 {else}
 Not German
 {endif}
 ```
+
+Note: Always check for `page` and `member` before doing comparisons. If you are in the Contao back end, none of them 
+are set.
 
 ### Replacement tokens
 
