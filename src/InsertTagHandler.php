@@ -74,13 +74,16 @@ class InsertTagHandler
         return $this->parser->parse((string) $record['replacement'], $tokens);
     }
 
-    private function dcaFormat(string $table, string $field, mixed $value): mixed
+    /**
+     * Ensures compatibility for both, Haste v4 and v5.
+     */
+    private function dcaFormat(string $table, string $field, mixed $value): string
     {
         if ($this->formatter) {
-            return $this->formatter->dcaValue($table, $field, $value);
+            return (string) $this->formatter->dcaValue($table, $field, $value);
         }
 
-        return Format::dcaValue($table, $field, $value);
+        return (string) Format::dcaValue($table, $field, $value);
     }
 
     private function getTagRecord(string $tag): array|null
@@ -133,20 +136,18 @@ class InsertTagHandler
         }
 
         // Validate only if there is a page model
-        if (($currentPage = $this->getPageModel()) !== null) {
-            $pageIds = array_map('\intval', $pageIds);
-            $currentPageId = (int) $currentPage->id;
+        $pageIds = array_map('\intval', $pageIds);
+        $currentPageId = (int) $currentPage->id;
 
-            if (!\in_array($currentPageId, $pageIds, true)) {
-                if (!$record['includesubpages']) {
-                    return false;
-                }
+        if (!\in_array($currentPageId, $pageIds, true)) {
+            if (!$record['includesubpages']) {
+                return false;
+            }
 
-                $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
+            $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
 
-                if (0 === \count(array_intersect($pageIds, $parentIds))) {
-                    return false;
-                }
+            if (0 === \count(array_intersect($pageIds, $parentIds))) {
+                return false;
             }
         }
 

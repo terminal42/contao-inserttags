@@ -8,7 +8,8 @@ use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Psr\Log\LoggerInterface;
 use Terminal42\InsertTagsBundle\InsertTagHandler;
 
-class InsertTagListener
+#[AsHook('replaceInsertTags')]
+class InsertTagsListener
 {
     public function __construct(
         private readonly InsertTagHandler $handler,
@@ -16,8 +17,7 @@ class InsertTagListener
     ) {
     }
 
-    #[AsHook('replaceInsertTags')]
-    public function onReplaceInsertTags(string $tag): string|false
+    public function __invoke(string $tag): string|false
     {
         try {
             $parsed = $this->handler->parseInsertTag($tag);
