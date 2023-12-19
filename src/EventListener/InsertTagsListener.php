@@ -13,7 +13,7 @@ class InsertTagsListener
 {
     public function __construct(
         private readonly InsertTagHandler $handler,
-        private readonly LoggerInterface $logger,
+        private readonly LoggerInterface|null $logger = null,
     ) {
     }
 
@@ -28,6 +28,10 @@ class InsertTagsListener
 
             return $parsed;
         } catch (\Throwable $exception) {
+            if (!$this->logger) {
+                throw $exception;
+            }
+
             $this->logger->error(
                 sprintf('Could not replace custom insert tag "%s": %s', $tag, $exception->getMessage()),
                 [
