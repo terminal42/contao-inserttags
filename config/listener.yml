@@ -8,11 +8,12 @@ services:
         arguments:
             - "@database_connection"
 
-    terminal42_insert_tags.frontend:
-        class: Terminal42\InsertTagsBundle\EventListener\FrontendListener
+    terminal42_insert_tags.insert_tags:
+        class: Terminal42\InsertTagsBundle\EventListener\InsertTagsListener
         public: true
         arguments:
             - "@terminal42_insert_tags.handler"
-            - "@request_stack"
-            - "@contao.routing.scope_matcher"
+            - '@?logger'
+        tags:
+            - { name: monolog.logger, channel: contao.error }
 

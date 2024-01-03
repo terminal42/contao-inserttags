@@ -10,6 +10,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         'sql' => [
             'keys' => [
                 'id' => 'primary',
+                'tag' => 'index',
             ],
         ],
     ],
