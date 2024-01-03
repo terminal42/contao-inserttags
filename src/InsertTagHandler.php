@@ -83,7 +83,12 @@ class InsertTagHandler
             return (string) $this->formatter->dcaValue($table, $field, $value);
         }
 
-        return (string) Format::dcaValue($table, $field, $value);
+        if (class_exists(Format::class)) {
+            /** @phpstan-ignore-next-line */
+            return (string) Format::dcaValue($table, $field, $value);
+        }
+
+        return $value;
     }
 
     private function getTagRecord(string $tag): array|null
