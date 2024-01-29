@@ -23,7 +23,7 @@ class InsertTagsListener
             $parsed = $this->handler->parseInsertTag($tag);
 
             if (null === $parsed) {
-                return '';
+                return false;
             }
 
             return $parsed;
