@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// Fields
 $GLOBALS['TL_LANG']['tl_inserttags']['tag'] = ['Platzhalter', 'Bitte geben Sie den Platzhalter ein.<br />Sie können diesen Platzhalter in einem beliebigen Inhaltselement als {{custom::platzhalter}} verwenden.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['replacement'] = ['Ersatz', 'Geben Sie den Inhalt ein, durch den der Platzhalter ersetzt werden soll.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['disableRTE'] = ['TinyMCE deaktivieren', 'Bitte klicken Sie hier wenn der TinyMCE Editor deaktiviert werden soll.'];

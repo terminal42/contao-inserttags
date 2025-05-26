@@ -33,7 +33,7 @@ class InsertTagsListener
             }
 
             $this->logger->error(
-                sprintf('Could not replace custom insert tag "%s": %s', $tag, $exception->getMessage()),
+                \sprintf('Could not replace custom insert tag "%s": %s', $tag, $exception->getMessage()),
                 [
                     'exception' => $exception,
                 ],

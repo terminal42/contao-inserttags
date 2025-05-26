@@ -107,7 +107,7 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
                 $mock
                     ->expects($this->exactly(\count($externalRecords)))
                     ->method('fetchOne')
-                    ->willReturnOnConsecutiveCalls(...$externalRecords)
+                    ->willReturnOnConsecutiveCalls(...array_values($externalRecords))
                 ;
 
                 $mock
@@ -132,7 +132,7 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
         $this->assertTrue($migration->run()->isSuccessful());
     }
 
-    public function provider(): array
+    public static function provider(): iterable
     {
         return [
             'Page limits' => [

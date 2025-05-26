@@ -27,15 +27,25 @@
     "require": {
         "php": "^8.1",
         "contao/core-bundle": "^4.13 || ^5.0",
-        "codefog/contao-haste": "^4.0 || ^5.0"
+        "codefog/contao-haste": "^4.0 || ^5.0",
+        "doctrine/dbal": "^3.3",
+        "psr/log": "^1 || ^2 || ^3",
+        "symfony/config": "^5 || ^6 || ^7",
+        "symfony/dependency-injection": "^5 || ^6 || ^7",
+        "symfony/http-foundation": "^5 || ^6 || ^7",
+        "symfony/http-kernel": "^5 || ^6 || ^7",
+        "symfony/security-core": "^5 || ^6 || ^7"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0",
         "contao/test-case": "^4.13",
-        "terminal42/contao-build-tools": "dev-main"
+        "phpunit/phpunit": "^9.6",
+        "terminal42/contao-build-tools": "dev-main",
+        "composer/semver": "^3"
     },
     "conflict": {
-        "contao/manager-plugin": "<2.0 || >=3.0"
+        "contao/manager-plugin": "<2.0 || >=3.0",
+        "composer/semver": "<3 || >= 4"
     },
     "autoload": {
         "psr-4": {
@@ -55,10 +65,11 @@
     },
     "config": {
         "allow-plugins": {
-            "contao-components/installer": true,
-            "contao/manager-plugin": true,
-            "contao-community-alliance/composer-plugin": true,
-            "terminal42/contao-build-tools": true
+            "terminal42/contao-build-tools": true,
+            "contao-components/installer": false,
+            "contao/manager-plugin": false,
+            "contao-community-alliance/composer-plugin": false,
+            "php-http/discovery": false
         }
     }
 }

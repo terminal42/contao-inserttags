@@ -49,8 +49,8 @@ class DuplicateRecordsMigration extends AbstractMigration
                     $pageTitle = $this->connection->fetchOne('SELECT title FROM tl_page WHERE id=?', [$page]);
 
                     if (false !== $pageTitle) {
-                        $comments[] = sprintf('# Page ID %s is %s', $page, $pageTitle);
-                        $replacementPages[] = $record['includesubpages'] ? sprintf('%s in page.trail', $page) : sprintf('page.id == %s', $page);
+                        $comments[] = \sprintf('# Page ID %s is %s', $page, $pageTitle);
+                        $replacementPages[] = $record['includesubpages'] ? \sprintf('%s in page.trail', $page) : \sprintf('page.id == %s', $page);
                     }
                 }
 
@@ -62,28 +62,28 @@ class DuplicateRecordsMigration extends AbstractMigration
                     $groupTitle = $this->connection->fetchOne('SELECT title FROM tl_page WHERE id=?', [$group]);
 
                     if (false !== $groupTitle) {
-                        $comments[] = sprintf('# Member group ID %s is %s', $group, $groupTitle);
-                        $replacementGroups[] = sprintf('%s in member.groups', $group);
+                        $comments[] = \sprintf('# Member group ID %s is %s', $group, $groupTitle);
+                        $replacementGroups[] = \sprintf('%s in member.groups', $group);
                     }
                 }
 
                 $statementChunks = [];
 
                 if (\count($replacementGroups) > 0) {
-                    $statementChunks[] = sprintf('member and (%s)', implode(' or ', $replacementGroups));
+                    $statementChunks[] = \sprintf('member and (%s)', implode(' or ', $replacementGroups));
                 }
 
                 if (\count($replacementPages) > 0) {
                     if (\count($statementChunks) > 0) {
-                        $statementChunks[] = sprintf('(%s)', implode(' or ', $replacementPages));
+                        $statementChunks[] = \sprintf('(%s)', implode(' or ', $replacementPages));
                     } else {
-                        $statementChunks[] = sprintf('%s', implode(' or ', $replacementPages));
+                        $statementChunks[] = \sprintf('%s', implode(' or ', $replacementPages));
                     }
                 }
 
                 if (\count($statementChunks) > 0) {
                     $replacement[] = implode("\n", $comments);
-                    $replacement[] = sprintf('{if %s}', implode(' and ', $statementChunks));
+                    $replacement[] = \sprintf('{if %s}', implode(' and ', $statementChunks));
                     $replacement[] = $record['replacement'];
                     $replacement[] = '{endif}';
                     $replacement[] = '';

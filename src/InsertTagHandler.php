@@ -183,7 +183,7 @@ class InsertTagHandler
             return $GLOBALS['objPage'];
         }
 
-        return PageModel::findByPk($page);
+        return PageModel::findById($page);
     }
 
     private function getFrontendUser(): FrontendUser|null

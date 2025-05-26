@@ -35,7 +35,7 @@ class ParserTest extends TestCase
         $this->assertSame($expected, $parser->parse($replacement, []));
     }
 
-    public function provider(): array
+    public static function provider(): iterable
     {
         return [
             'Comments stripping' => [

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-// Fields
 $GLOBALS['TL_LANG']['tl_inserttags']['tag'] = ['Insert tag', 'Saisissez votre Insert tag.<br />Il sera possible d\'utiliser ce code en saisissant {{custom::votre-tag}}'];
 $GLOBALS['TL_LANG']['tl_inserttags']['replacement'] = ['Affichage', 'Saisissez le texte qui sera affiché à la place de l\'insert tag.'];
 $GLOBALS['TL_LANG']['tl_inserttags']['disableRTE'] = ['Désactiver TinyMCE', 'Cochez la case pour désactiver l\'éditeur TinyMCE.'];
