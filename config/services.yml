@@ -8,7 +8,8 @@ services:
             - "@database_connection"
             - "@terminal42_insert_tags.parser"
             - "@request_stack"
-            - "@security.helper"
+            - "@security.authorization_checker"
+            - "@security.token_storage"
             - '@?Codefog\HasteBundle\Formatter'
 
     terminal42_insert_tags.parser:

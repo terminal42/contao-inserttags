@@ -14,7 +14,8 @@ use Doctrine\DBAL\Connection;
 use Haste\Util\Format;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class InsertTagHandler
 {
@@ -24,7 +25,8 @@ class InsertTagHandler
         private readonly Connection $connection,
         private readonly Parser $parser,
         private readonly RequestStack $requestStack,
-        private readonly Security $security,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private readonly TokenStorageInterface $tokenStorage,
         private readonly Formatter|null $formatter,
     ) {
     }
@@ -118,7 +120,7 @@ class InsertTagHandler
             return true;
         }
 
-        return $this->security->isGranted(ContaoCorePermissions::MEMBER_IN_GROUPS, StringUtil::deserialize($record['groups'], true));
+        return $this->authorizationChecker->isGranted(ContaoCorePermissions::MEMBER_IN_GROUPS, StringUtil::deserialize($record['groups'], true));
     }
 
     private function validateLimitPages(array $record): bool
@@ -186,7 +188,7 @@ class InsertTagHandler
 
     private function getFrontendUser(): FrontendUser|null
     {
-        $user = $this->security->getUser();
+        $user = $this->tokenStorage->getToken()?->getUser();
 
         return $user instanceof FrontendUser ? $user : null;
     }
