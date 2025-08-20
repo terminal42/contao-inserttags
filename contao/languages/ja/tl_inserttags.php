@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 $GLOBALS['TL_LANG']['tl_inserttags']['tag'] = ['挿入タグ', '挿入タグを入力してください。<br>{{custom::your-tag}}を使用して、どのコンテント要素でもこのタグを使用できます。'];
 $GLOBALS['TL_LANG']['tl_inserttags']['replacement'] = ['置き換え', '挿入タグと置き換える内容を入力してください。'];
+$GLOBALS['TL_LANG']['tl_inserttags']['replacementNot'] = ['条件に合致しない場合の置き換え', '以下の条件に合致しない場合に挿入タグ置き換える内容を入力できます。'];
 $GLOBALS['TL_LANG']['tl_inserttags']['disableRTE'] = ['TinyMCEを不使用', 'リッチテキストエディタTinyMCEを無効にしたい場合に選択してください。'];
 $GLOBALS['TL_LANG']['tl_inserttags']['description'] = ['説明', '挿入タグの説明を入力して、同じタグを相互に区別できます。'];
 $GLOBALS['TL_LANG']['tl_inserttags']['limitpages'] = ['ページを限定', '挿入タグを特定のページに限定したい場合に選択してください。'];
