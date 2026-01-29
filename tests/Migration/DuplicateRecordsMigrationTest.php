@@ -10,7 +10,7 @@ use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use Terminal42\InsertTagsBundle\Migration\DuplicateRecordsMigration;
 
-class DuplicateRecordsMigrationTest extends ContaoTestCase
+final class DuplicateRecordsMigrationTest extends ContaoTestCase
 {
     public function testShouldRunSuccess(): void
     {
@@ -134,32 +134,31 @@ class DuplicateRecordsMigrationTest extends ContaoTestCase
 
     public static function provider(): iterable
     {
-        return [
-            'Page limits' => [
-                'foobar',
+        yield 'Page limits' => [
+            'foobar',
+            [
                 [
-                    [
-                        'replacement' => 'Replacement 1x',
-                        'limitpages' => '1',
-                        'pages' => [10, 11],
-                        'includesubpages' => '1',
-                        'protected' => '',
-                        'groups' => [],
-                    ],
-                    [
-                        'replacement' => 'Replacement 2x',
-                        'limitpages' => '1',
-                        'pages' => [20, 21],
-                        'includesubpages' => '',
-                        'protected' => '',
-                        'groups' => [],
-                    ],
+                    'replacement' => 'Replacement 1x',
+                    'limitpages' => '1',
+                    'pages' => [10, 11],
+                    'includesubpages' => '1',
+                    'protected' => '',
+                    'groups' => [],
                 ],
                 [
-                    'Page 10', 'Page 11',
-                    'Page 20', 'Page 21',
+                    'replacement' => 'Replacement 2x',
+                    'limitpages' => '1',
+                    'pages' => [20, 21],
+                    'includesubpages' => '',
+                    'protected' => '',
+                    'groups' => [],
                 ],
-                '# Page ID 10 is Page 10
+            ],
+            [
+                'Page 10', 'Page 11',
+                'Page 20', 'Page 21',
+            ],
+            '# Page ID 10 is Page 10
 # Page ID 11 is Page 11
 {if 10 in page.trail or 11 in page.trail}
 Replacement 1x
@@ -170,33 +169,32 @@ Replacement 1x
 {if page.id == 20 or page.id == 21}
 Replacement 2x
 {endif}',
+        ];
+        yield 'Member groups limits' => [
+            'foobar',
+            [
+                [
+                    'replacement' => 'Replacement 1x',
+                    'limitpages' => '',
+                    'pages' => [],
+                    'includesubpages' => '',
+                    'protected' => '1',
+                    'groups' => [10, 11],
+                ],
+                [
+                    'replacement' => 'Replacement 2x',
+                    'limitpages' => '',
+                    'pages' => [],
+                    'includesubpages' => '',
+                    'protected' => '2',
+                    'groups' => [20, 21],
+                ],
             ],
-
-            'Member groups limits' => [
-                'foobar',
-                [
-                    [
-                        'replacement' => 'Replacement 1x',
-                        'limitpages' => '',
-                        'pages' => [],
-                        'includesubpages' => '',
-                        'protected' => '1',
-                        'groups' => [10, 11],
-                    ],
-                    [
-                        'replacement' => 'Replacement 2x',
-                        'limitpages' => '',
-                        'pages' => [],
-                        'includesubpages' => '',
-                        'protected' => '2',
-                        'groups' => [20, 21],
-                    ],
-                ],
-                [
-                    'Group 10', 'Group 11',
-                    'Group 20', 'Group 21',
-                ],
-                '# Member group ID 10 is Group 10
+            [
+                'Group 10', 'Group 11',
+                'Group 20', 'Group 21',
+            ],
+            '# Member group ID 10 is Group 10
 # Member group ID 11 is Group 11
 {if member and (10 in member.groups or 11 in member.groups)}
 Replacement 1x
@@ -207,33 +205,32 @@ Replacement 1x
 {if member and (20 in member.groups or 21 in member.groups)}
 Replacement 2x
 {endif}',
+        ];
+        yield 'Pages and member groups limits' => [
+            'foobar',
+            [
+                [
+                    'replacement' => 'Replacement 1x',
+                    'limitpages' => '1',
+                    'pages' => [10, 11],
+                    'includesubpages' => '1',
+                    'protected' => '1',
+                    'groups' => [10, 11],
+                ],
+                [
+                    'replacement' => 'Replacement 2x',
+                    'limitpages' => '1',
+                    'pages' => [20, 21],
+                    'includesubpages' => '',
+                    'protected' => '2',
+                    'groups' => [20, 21],
+                ],
             ],
-
-            'Pages and member groups limits' => [
-                'foobar',
-                [
-                    [
-                        'replacement' => 'Replacement 1x',
-                        'limitpages' => '1',
-                        'pages' => [10, 11],
-                        'includesubpages' => '1',
-                        'protected' => '1',
-                        'groups' => [10, 11],
-                    ],
-                    [
-                        'replacement' => 'Replacement 2x',
-                        'limitpages' => '1',
-                        'pages' => [20, 21],
-                        'includesubpages' => '',
-                        'protected' => '2',
-                        'groups' => [20, 21],
-                    ],
-                ],
-                [
-                    'Page 10', 'Page 11', 'Group 10', 'Group 11',
-                    'Page 20', 'Page 21', 'Group 20', 'Group 21',
-                ],
-                '# Page ID 10 is Page 10
+            [
+                'Page 10', 'Page 11', 'Group 10', 'Group 11',
+                'Page 20', 'Page 21', 'Group 20', 'Group 21',
+            ],
+            '# Page ID 10 is Page 10
 # Page ID 11 is Page 11
 # Member group ID 10 is Group 10
 # Member group ID 11 is Group 11
@@ -248,7 +245,6 @@ Replacement 1x
 {if member and (20 in member.groups or 21 in member.groups) and (page.id == 20 or page.id == 21)}
 Replacement 2x
 {endif}',
-            ],
         ];
     }
 

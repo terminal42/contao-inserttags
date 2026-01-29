@@ -143,7 +143,7 @@ class InsertTagHandler
         }
 
         // Validate only if there is a page model
-        $pageIds = array_map('\intval', $pageIds);
+        $pageIds = array_map(\intval(...), $pageIds);
         $currentPageId = (int) $currentPage->id;
 
         if (!\in_array($currentPageId, $pageIds, true)) {
@@ -151,7 +151,7 @@ class InsertTagHandler
                 return false;
             }
 
-            $parentIds = array_map('\intval', Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
+            $parentIds = array_map(\intval(...), Database::getInstance()->getParentRecords($currentPageId, 'tl_page'));
 
             if (0 === \count(array_intersect($pageIds, $parentIds))) {
                 return false;
