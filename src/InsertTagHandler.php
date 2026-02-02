@@ -165,25 +165,29 @@ class InsertTagHandler
     {
         $request = $this->requestStack->getCurrentRequest();
 
-        if (!$request instanceof Request || !$request->attributes->has('pageModel')) {
+        if (!$request instanceof Request) {
             return null;
         }
 
-        $page = $request->attributes->get('pageModel');
+        $pageModelOrId = $request->attributes->get('pageModel');
 
-        if ($page instanceof PageModel) {
-            return $page;
+        if ($pageModelOrId instanceof PageModel) {
+            return $pageModelOrId;
         }
 
-        if (
-            isset($GLOBALS['objPage'])
-            && $GLOBALS['objPage'] instanceof PageModel
-            && (int) $GLOBALS['objPage']->id === (int) $page
-        ) {
-            return $GLOBALS['objPage'];
+        if (isset($GLOBALS['objPage'])) {
+            if ($GLOBALS['objPage'] instanceof PageModel) {
+                return $GLOBALS['objPage'];
+            }
+            if (is_numeric($GLOBALS['objPage'])) {
+                return PageModel::findById((int) $GLOBALS['objPage']);
+            }
+            if (is_numeric($pageModelOrId)) {
+                return PageModel::findById((int) $pageModelOrId);
+            }
         }
 
-        return PageModel::findById($page);
+        return null;
     }
 
     private function getFrontendUser(): FrontendUser|null
