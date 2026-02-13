@@ -26,8 +26,8 @@
     },
     "require": {
         "php": "^8.1",
-        "contao/core-bundle": "^4.13 || ^5.0",
-        "codefog/contao-haste": "^4.0 || ^5.0",
+        "contao/core-bundle": "^5.3",
+        "codefog/contao-haste": "^5.0",
         "doctrine/dbal": "^3.3",
         "psr/log": "^1 || ^2 || ^3",
         "symfony/config": "^5 || ^6 || ^7",
@@ -38,7 +38,7 @@
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0",
-        "contao/test-case": "^4.13",
+        "contao/test-case": "^5.3",
         "phpunit/phpunit": "^9.6",
         "terminal42/contao-build-tools": "dev-main",
         "composer/semver": "^3"
