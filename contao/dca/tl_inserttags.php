@@ -26,33 +26,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         ],
         'label' => [
             'fields' => ['tag', 'description'],
-            'format' => '%s <span class="tl_gray">(%s)</span>',
-        ],
-        'global_operations' => [
-            'all' => [
-                'href' => 'act=select',
-                'class' => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset();"',
-            ],
-        ],
-        'operations' => [
-            'edit' => [
-                'href' => 'act=edit',
-                'icon' => 'edit.svg',
-            ],
-            'copy' => [
-                'href' => 'act=copy',
-                'icon' => 'copy.svg',
-            ],
-            'delete' => [
-                'href' => 'act=delete',
-                'icon' => 'delete.svg',
-                'attributes' => 'onclick="if (!confirm(\''.($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? '').'\')) return false; Backend.getScrollOffset();"',
-            ],
-            'show' => [
-                'href' => 'act=show',
-                'icon' => 'show.svg',
-            ],
+            'format' => '%s <span class="tl_gray">[%s]</span>',
         ],
     ],
 
@@ -78,14 +52,12 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         ],
         'tag' => [
             'inputType' => 'text',
-            'exclude' => true,
             'filter' => true,
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'nospace' => true, 'unique' => true, 'doNotCopy' => true, 'tl_class' => 'w50'],
             'sql' => ['type' => 'string', 'length' => 255, 'default' => ''],
         ],
         'replacement' => [
             'inputType' => 'textarea',
-            'exclude' => true,
             'search' => true,
             'eval' => ['rte' => 'tinyMCE', 'allowHtml' => true, 'helpwizard' => true, 'tl_class' => 'clr', 'basicEntities' => true],
             'explanation' => 'customInsertTags',
@@ -93,7 +65,6 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         ],
         'replacementNot' => [
             'inputType' => 'textarea',
-            'exclude' => true,
             'search' => true,
             'eval' => ['rte' => 'tinyMCE', 'allowHtml' => true, 'helpwizard' => true, 'tl_class' => 'clr'],
             'explanation' => 'customInsertTags',
@@ -101,47 +72,40 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         ],
         'disableRTE' => [
             'inputType' => 'checkbox',
-            'exclude' => true,
             'filter' => true,
             'eval' => ['submitOnChange' => true, 'tl_class' => 'clr'],
             'sql' => "char(1) COLLATE ascii_bin NOT NULL default ''",
         ],
         'description' => [
             'inputType' => 'text',
-            'exclude' => true,
             'search' => true,
             'eval' => ['maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => ['type' => 'string', 'length' => 255, 'default' => ''],
         ],
         'limitpages' => [
             'inputType' => 'checkbox',
-            'exclude' => true,
             'filter' => true,
             'eval' => ['submitOnChange' => true, 'tl_class' => 'clr'],
             'sql' => "char(1) COLLATE ascii_bin NOT NULL default ''",
         ],
         'pages' => [
             'inputType' => 'pageTree',
-            'exclude' => true,
             'eval' => ['fieldType' => 'checkbox', 'multiple' => true, 'tl_class' => 'clr'],
             'sql' => ['type' => 'blob', 'notnull' => false],
         ],
         'includesubpages' => [
             'inputType' => 'checkbox',
-            'exclude' => true,
             'filter' => true,
             'eval' => ['tl_class' => 'clr'],
             'sql' => "char(1) COLLATE ascii_bin NOT NULL default ''",
         ],
         'protected' => [
-            'exclude' => true,
             'filter' => true,
             'inputType' => 'checkbox',
             'eval' => ['submitOnChange' => true, 'tl_class' => 'clr'],
             'sql' => "char(1) COLLATE ascii_bin NOT NULL default ''",
         ],
         'groups' => [
-            'exclude' => true,
             'inputType' => 'checkbox',
             'eval' => ['multiple' => true, 'tl_class' => 'clr'],
             'sql' => ['type' => 'blob', 'notnull' => false],

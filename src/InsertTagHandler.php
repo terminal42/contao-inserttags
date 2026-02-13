@@ -11,7 +11,6 @@ use Contao\FrontendUser;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Doctrine\DBAL\Connection;
-use Haste\Util\Format;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -27,7 +26,7 @@ class InsertTagHandler
         private readonly RequestStack $requestStack,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
         private readonly TokenStorageInterface $tokenStorage,
-        private readonly Formatter|null $formatter,
+        private readonly Formatter $formatter,
     ) {
     }
 
@@ -57,14 +56,14 @@ class InsertTagHandler
         // Generate the member replacement tokens
         if (null !== $user) {
             foreach ($user->getData() as $k => $v) {
-                $tokens['member_'.$k] = $this->dcaFormat('tl_member', $k, $v);
+                $tokens['member_'.$k] = $this->formatter->dcaValue('tl_member', $k, $v);
             }
         }
 
         // Generate the page replacement tokens
         if (null !== $pageModel) {
             foreach ($pageModel->row() as $k => $v) {
-                $tokens['page_'.$k] = $this->dcaFormat('tl_page', $k, $v);
+                $tokens['page_'.$k] = $this->formatter->dcaValue('tl_page', $k, $v);
             }
         }
 
@@ -74,23 +73,6 @@ class InsertTagHandler
         }
 
         return $this->parser->parse((string) $record['replacement'], $tokens);
-    }
-
-    /**
-     * Ensures compatibility for both, Haste v4 and v5.
-     */
-    private function dcaFormat(string $table, string $field, mixed $value): string
-    {
-        if ($this->formatter) {
-            return (string) $this->formatter->dcaValue($table, $field, $value);
-        }
-
-        if (class_exists(Format::class)) {
-            /** @phpstan-ignore-next-line */
-            return (string) Format::dcaValue($table, $field, $value);
-        }
-
-        return $value;
     }
 
     private function getTagRecord(string $tag): array|null
