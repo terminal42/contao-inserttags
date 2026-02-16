@@ -10,7 +10,7 @@ services:
             - "@request_stack"
             - "@security.authorization_checker"
             - "@security.token_storage"
-            - 'Codefog\HasteBundle\Formatter'
+            - "@Codefog\HasteBundle\Formatter"
 
     terminal42_insert_tags.parser:
         class: Terminal42\InsertTagsBundle\Parser
