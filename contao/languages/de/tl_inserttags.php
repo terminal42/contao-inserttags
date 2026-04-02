@@ -22,3 +22,6 @@ $GLOBALS['TL_LANG']['tl_inserttags']['show'] = ['Platzhalterdetails', 'Die Detai
 // Legends
 $GLOBALS['TL_LANG']['tl_inserttags']['tag_legend'] = 'Platzhalter & Ersatztext';
 $GLOBALS['TL_LANG']['tl_inserttags']['limit_legend'] = 'Limitierungen';
+
+// Backend search
+$GLOBALS['TL_LANG']['tl_inserttags']['tableLabel'] = 'Platzhalter';

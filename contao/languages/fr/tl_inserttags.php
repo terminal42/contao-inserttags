@@ -22,3 +22,6 @@ $GLOBALS['TL_LANG']['tl_inserttags']['show'] = ['Détails du tag', 'Détails du 
 // Legends
 $GLOBALS['TL_LANG']['tl_inserttags']['tag_legend'] = 'Tag & Affichage';
 $GLOBALS['TL_LANG']['tl_inserttags']['limit_legend'] = 'Limites';
+
+// Backend search
+$GLOBALS['TL_LANG']['tl_inserttags']['tableLabel'] = 'Insert tag';

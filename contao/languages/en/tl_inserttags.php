@@ -21,3 +21,6 @@ $GLOBALS['TL_LANG']['tl_inserttags']['show'] = ['Tag details', 'Show details of 
 
 $GLOBALS['TL_LANG']['tl_inserttags']['tag_legend'] = 'Tag & Replacement';
 $GLOBALS['TL_LANG']['tl_inserttags']['limit_legend'] = 'Limits';
+
+// Backend search
+$GLOBALS['TL_LANG']['tl_inserttags']['tableLabel'] = 'Insert tag';
