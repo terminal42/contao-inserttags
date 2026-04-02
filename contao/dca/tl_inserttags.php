@@ -53,12 +53,14 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         'tag' => [
             'inputType' => 'text',
             'filter' => true,
+            'search' => true,
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'nospace' => true, 'unique' => true, 'doNotCopy' => true, 'tl_class' => 'w50'],
             'sql' => ['type' => 'string', 'length' => 255, 'default' => ''],
         ],
         'replacement' => [
             'inputType' => 'textarea',
             'search' => true,
+            'backendSearch' => false,
             'eval' => ['rte' => 'tinyMCE', 'allowHtml' => true, 'helpwizard' => true, 'tl_class' => 'clr', 'basicEntities' => true],
             'explanation' => 'customInsertTags',
             'sql' => ['type' => 'text', 'notnull' => false],
@@ -66,6 +68,7 @@ $GLOBALS['TL_DCA']['tl_inserttags'] = [
         'replacementNot' => [
             'inputType' => 'textarea',
             'search' => true,
+            'backendSearch' => false,
             'eval' => ['rte' => 'tinyMCE', 'allowHtml' => true, 'helpwizard' => true, 'tl_class' => 'clr'],
             'explanation' => 'customInsertTags',
             'sql' => ['type' => 'text', 'notnull' => false],
